@@ -51,7 +51,7 @@ export const mouseMethods = {
             break;
         }
       }
-      else
+      else if(e.button == 0)
       {
         // new
         point = {
