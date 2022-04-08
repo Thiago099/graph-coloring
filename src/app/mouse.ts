@@ -51,9 +51,9 @@ export const mouseMethods = {
             break;
         }
       }
+      // new
       else if(e.button == 0)
       {
-        // new
         point = {
           circle: this.circle,
           position: this.mouse,
