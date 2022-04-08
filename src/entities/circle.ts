@@ -32,5 +32,5 @@ export function bake_circle(props:any=null)
 
 export function draw_circle(ctx:CanvasRenderingContext2D,circle:circle, position:point)
 {
-  ctx.drawImage(circle.surface, position.x-circle.radius, position.y-circle.radius);
+  ctx.drawImage(circle.surface, position.x-circle.radius-circle.border_radius, position.y-circle.radius-circle.border_radius);
 }

@@ -2,6 +2,7 @@ import { pointDistance } from '@/entities/point'
 
 export const mouseData = {
   drag_point:null,
+  connect_point:null,
   drag_offset:null,
   mouse:null,
 }
@@ -22,6 +23,9 @@ export const mouseMethods = {
               x: point.position.x - this.mouse.x,
               y: point.position.y - this.mouse.y
             }
+            break;
+          case 1:
+            this.connect_point = point
             break;
           case 2:
             this.nodes.splice(this.nodes.indexOf(point),1)
@@ -56,6 +60,10 @@ export const mouseMethods = {
       {
         this.drag_point.position.x = this.mouse.x + this.drag_offset.x
         this.drag_point.position.y = this.mouse.y + this.drag_offset.y
+        this.draw()
+      }
+      if(this.connect_point)
+      {
         this.draw()
       }
     },

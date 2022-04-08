@@ -26,11 +26,11 @@ export default defineComponent({
     this.screen = this.$refs.screen
     this.screen.width = window.innerWidth;
     this.screen.height = window.innerHeight;
-    const style = getComputedStyle(this.screen)
+    this.style = getComputedStyle(this.screen)
 
     this.circle = bake_circle({
-      color:style.getPropertyValue('--medium'),
-      border_color: style.getPropertyValue('--bright'),
+      color:this.style.getPropertyValue('--medium'),
+      border_color: this.style.getPropertyValue('--bright'),
       radius: 15,
     })
 
