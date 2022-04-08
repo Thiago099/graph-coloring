@@ -1,4 +1,6 @@
-# graph2
+# graph
+
+this is a work in progress graph app where i try to make a organized vue code
 
 ## Project setup
 ```
