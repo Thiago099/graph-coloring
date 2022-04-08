@@ -40,7 +40,6 @@ export const mouseMethods = {
                 if(connection.to > delete_node-1) connection.to--
                 return connection
               })
-              console.log(this.connections)
               this.save()
             this.draw()
             }
