@@ -1,0 +1,31 @@
+*{
+    --dark-selection:rgb(20, 25, 34);
+    --dark:rgb(24, 24, 24);
+    --medium:rgb(36, 36, 36);
+    --bright:rgb(85, 85, 85);
+}
+body{
+    background-color: var(--dark);
+    color:white;
+}
+:root {
+color-scheme: dark;
+}
+
+.icon{
+  filter:invert(1);
+}
+body{
+    overflow: hidden
+}
+
+input.form-control{
+    background-color: var(--dark);
+    border:1px solid var(--bright);
+    color: white;
+}
+input.form-control:focus{
+    border:1px solid var(--bright);
+    background-color: var(--dark);
+    color: white;
+}
