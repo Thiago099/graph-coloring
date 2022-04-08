@@ -34,10 +34,10 @@ export const mouseMethods = {
             {
               const delete_node = this.nodes.indexOf(point)
               this.nodes.splice(delete_node,1)
-              this.connections = this.connections.filter(connection => connection.from !== point && connection.to !== point)
+              this.connections = this.connections.filter(connection => connection.from != delete_node && connection.to != delete_node)
               this.connections = this.connections.map(connection => {
-                if(connection.from > delete_node-1) connection.from--;
-                if(connection.to > delete_node-1) connection.to--
+                if(connection.from > delete_node) connection.from--;
+                if(connection.to > delete_node) connection.to--
                 return connection
               })
               this.save()
