@@ -1,4 +1,5 @@
 <template>
+  
   <canvas 
     ref="screen"
     @mousedown="onMouseDown" 
@@ -35,8 +36,8 @@ export default defineComponent({
     })
 
     this.nodes = JSON.parse(window.localStorage.getItem('nodes')) || []
-
-    this.nodes.map(node => node.circle = this.circle)
+    this.nodes = this.nodes.map(node => {return {circle: this.circle,position:node}})
+    this.connections = JSON.parse(window.localStorage.getItem('connections')) || []
 
     this.draw()
   },

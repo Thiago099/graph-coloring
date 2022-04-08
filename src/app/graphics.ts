@@ -1,9 +1,11 @@
 import { draw_circle } from '@/entities/circle'
+import { point } from '@/entities/point'
 
 export const graphicsData = {
     screen:null,
     circle:null,
     nodes:[],
+    connections:[],
     lines:[],
     style:null,
 }
@@ -17,15 +19,12 @@ export const graphicsMethods = {
       
       if(this.connect_point)
       {
-        ctx.beginPath()
-        ctx.moveTo(this.connect_point.position.x,this.connect_point.position.y)
-        ctx.lineTo(this.mouse.x,this.mouse.y)
-        ctx.lineWidth = 7
-        ctx.strokeStyle = this.style.getPropertyValue('--bright'),
-        ctx.stroke()
-        ctx.lineWidth = 3
-        ctx.strokeStyle = this.style.getPropertyValue('--medium'),
-        ctx.stroke()
+        this.draw_line(ctx,this.connect_point.position,this.mouse)
+      }
+
+      for(const connection of this.connections)
+      {
+        this.draw_line(ctx,this.nodes[connection.from].position,this.nodes[connection.to].position)
       }
 
       for(const point of this.nodes)
@@ -33,6 +32,19 @@ export const graphicsMethods = {
         draw_circle(ctx, point.circle, point.position)
       }
       
+    },
+
+    draw_line(ctx:CanvasRenderingContext2D, from:point, to:point)
+    {
+      ctx.beginPath()
+      ctx.moveTo(from.x,from.y)
+      ctx.lineTo(to.x,to.y)
+      ctx.lineWidth = 7
+      ctx.strokeStyle = this.style.getPropertyValue('--bright'),
+      ctx.stroke()
+      ctx.lineWidth = 3
+      ctx.strokeStyle = this.style.getPropertyValue('--medium'),
+      ctx.stroke()
     }
 
 }
