@@ -115,10 +115,10 @@ export const mouseMethods = {
           })
         }
       }
-      this.save()
       // clear state
       this.drag_point = null
       this.connect_point = null 
+      this.save()
       this.draw()
     },
 
