@@ -9,7 +9,7 @@ export const keyboardMethods = {
         this.keys[e.key] = true
     },
 
-    onkeyUp(e:KeyboardEvent)
+    onKeyUp(e:KeyboardEvent)
     {
         this.keys[e.key] = false
     }
