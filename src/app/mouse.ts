@@ -34,15 +34,18 @@ export const mouseMethods = {
           case 2:
             {
               const delete_node = this.nodes.indexOf(point)
-              this.nodes.splice(delete_node,1)
               this.connections = this.connections.filter(connection => connection.from != delete_node && connection.to != delete_node)
-              this.connections = this.connections.map(connection => {
-                if(connection.from > delete_node) connection.from--;
-                if(connection.to > delete_node) connection.to--
-                return connection
-              })
+              if(!this.keys['Control'])
+              {
+                this.nodes.splice(delete_node,1)
+                this.connections = this.connections.map(connection => {
+                  if(connection.from > delete_node) connection.from--;
+                  if(connection.to > delete_node) connection.to--
+                  return connection
+                })
+              }
               this.save()
-            this.draw()
+              this.draw()
             }
             
             break;
@@ -121,6 +124,7 @@ export const mouseMethods = {
 
     updateMousePosition(e:MouseEvent)
     {
+      this.screen.focus()
       const { offsetX, offsetY } = e
       this.mouse = {
         x: offsetX,
