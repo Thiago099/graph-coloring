@@ -23,26 +23,25 @@ export default defineComponent({
 
   name: 'App',
 
-  mounted(){
+  mounted()
+  {
     this.screen = this.$refs.screen
     this.screen.width = window.innerWidth;
     this.screen.height = window.innerHeight;
     this.style = getComputedStyle(this.screen)
 
     this.circle = bake_circle({
-      color:this.style.getPropertyValue('--medium'),
-      border_color: this.style.getPropertyValue('--bright'),
-      radius: 15,
+        color:this.style.getPropertyValue('--medium'),
+        border_color: this.style.getPropertyValue('--bright'),
+        radius: 15,
     })
 
-    this.nodes = JSON.parse(window.localStorage.getItem('nodes')) || []
-    this.nodes = this.nodes.map(node => {return {circle: this.circle,position:node}})
-    this.connections = JSON.parse(window.localStorage.getItem('connections')) || []
-
+    this.load()
     this.draw()
   },
 
-  data(){
+  data()
+  {
     return {
       ... graphicsData,
       ... mouseData,

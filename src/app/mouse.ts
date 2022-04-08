@@ -16,7 +16,8 @@ export const mouseMethods = {
       let point = this.nodes.find(p => pointDistance(p.position,this.mouse) < p.circle.radius)
       if(point)
       {
-        switch(e.button){
+        switch(e.button)
+        {
           // drag
           case 0:
             this.drag_point = point
@@ -84,7 +85,8 @@ export const mouseMethods = {
       }
     },
 
-    onMouseUp(e:MouseEvent){
+    onMouseUp(e:MouseEvent)
+    {
       this.updateMousePosition(e)
       // end connect
       if(this.connect_point)
@@ -117,7 +119,8 @@ export const mouseMethods = {
       this.draw()
     },
 
-    updateMousePosition(e:MouseEvent){
+    updateMousePosition(e:MouseEvent)
+    {
       const { offsetX, offsetY } = e
       this.mouse = {
         x: offsetX,
