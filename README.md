@@ -1,6 +1,6 @@
 # description
 
-color the graph with the least ammount of colors posible and two of the same color dont connect
+color the graph with the least ammount of colors posible so two of the same color dont connect
 
 ## commands
 
