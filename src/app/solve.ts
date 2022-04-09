@@ -11,7 +11,6 @@ export const solveMethods = {
 
     solve()
     {
-        // reset the color list
         const graph = [];
         for (let i = 0; i < this.nodes.length; i++) graph.push(0);
 
