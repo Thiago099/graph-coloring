@@ -1,5 +1,4 @@
 <template>
-  
   <canvas 
     ref="screen"
     @mousedown="onMouseDown" 
@@ -22,7 +21,7 @@ import { mouseMethods, mouseData } from './mouse'
 import { keyboardMethods, keyboardData } from './keyboard'
 import { graphicsMethods, graphicsData } from './graphics'
 import { persistenceMethods, } from './persistence'
-
+import { solveMethods } from './solve'
 export default defineComponent({
 
   name: 'App',
@@ -35,13 +34,24 @@ export default defineComponent({
     this.style = getComputedStyle(this.screen)
     this.screen.focus()
 
-    this.circle = bake_circle({
+    this.circles.push(bake_circle({
         color:this.style.getPropertyValue('--medium'),
         border_color: this.style.getPropertyValue('--bright'),
         radius: 15,
-    })
+    }))
+    const colors = ['red','green','blue','yellow','orange','purple','pink','brown','black','white','gray','lime','cyan','magenta','olive','maroon','navy','teal','silver','indigo','violet']
+    for(const color of colors)
+    {
+      this.circles.push(bake_circle({
+          color,
+          border_color: this.style.getPropertyValue('--bright'),
+          radius: 15,
+      }))
+    }
 
     this.load()
+    this.nodes[0].circle = this.circles[1]
+    this.update_colors()
     this.draw()
   },
 
@@ -59,6 +69,7 @@ export default defineComponent({
     ... keyboardMethods,
     ... graphicsMethods,
     ... persistenceMethods,
+    ... solveMethods ,
   }
 
 });

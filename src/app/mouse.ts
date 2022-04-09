@@ -55,7 +55,7 @@ export const mouseMethods = {
       else if(e.button == 0)
       {
         point = {
-          circle: this.circle,
+          circle: this.circles[0],
           position: this.mouse,
         }
         this.drag_offset = {
@@ -105,7 +105,7 @@ export const mouseMethods = {
         else
         {
           const node = {
-            circle: this.circle,
+            circle: this.circles[0],
             position: this.mouse,
           }
           this.nodes.push(node)

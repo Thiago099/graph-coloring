@@ -3,7 +3,7 @@ import { point } from '@/entities/point'
 
 export const graphicsData = {
     screen:null,
-    circle:null,
+    circles:[],
     nodes:[],
     connections:[],
     lines:[],
