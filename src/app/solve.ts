@@ -25,6 +25,7 @@ export const solveMethods = {
         {
             const triangles = [];
 
+            // count the triangles
             for (let i = 0; i < graph.length; i++)
             {
                 triangles.push(0);
