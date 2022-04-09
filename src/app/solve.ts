@@ -24,10 +24,10 @@ export const solveMethods = {
         while (busy)
         {
             const triangles = [];
-            for (let i = 0; i < graph.length; i++) triangles.push(0);
 
             for (let i = 0; i < graph.length; i++)
             {
+                triangles.push(0);
                 for (let j = 0; j < connections[i].length; j++)
                 {
                     for (let k = 0; k < connections[connections[i][j]].length; k++)
