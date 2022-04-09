@@ -12,6 +12,10 @@ right button to delete
 middle button on empty space to create node and connect
 left button on empety space to create a node and drag
 
+ctrl+s to save in file 
+ctrl+l to load in file
+ctrl+c to clear
+
 ## Install node
 https://nodejs.org/en/download/
 

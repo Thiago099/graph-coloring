@@ -62,12 +62,20 @@ export const mouseMethods = {
           x: 0,
           y: 0
         }
-        point.position.x = this.mouse.x + this.drag_offset.x
-        point.position.y = this.mouse.y + this.drag_offset.y
+        point.position.x = this.mouse.x
+        point.position.y = this.mouse.y
         this.nodes.push(point)
         this.save()
         this.draw()
         this.drag_point = point
+      }else if(e.button == 1)
+      {
+        point = {
+          circle: this.circles[0],
+          position: this.mouse,
+        }
+        this.nodes.push(point)
+        this.connect_point = point
       }
     },
 

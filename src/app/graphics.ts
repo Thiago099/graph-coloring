@@ -45,6 +45,15 @@ export const graphicsMethods = {
       ctx.lineWidth = 3
       ctx.strokeStyle = this.style.getPropertyValue('--medium'),
       ctx.stroke()
-    }
+    },
+
+    update_colors()
+    {
+        const colors = this.solve();
+        for (let i = 0; i < this.nodes.length; i++)
+        {
+            this.nodes[i].circle = this.circles[colors[i]];
+        }
+    },
 
 }

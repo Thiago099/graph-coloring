@@ -1,14 +1,5 @@
 export const solveMethods = {
 
-    update_colors()
-    {
-        const colors = this.solve();
-        for (let i = 0; i < this.nodes.length; i++)
-        {
-            this.nodes[i].circle = this.circles[colors[i]];
-        }
-    },
-
     solve()
     {
         const graph = [];
@@ -19,7 +10,7 @@ export const solveMethods = {
         const connections = [];
 
         for (let i = 0; i < graph.length; i++)
-            connections[i] = [];
+            connections.push([]);
 
         for (let i = 0; i < this.connections.length; i++)
         {
@@ -83,7 +74,7 @@ export const solveMethods = {
             {
                 if (graph[current_start] == current_color)
                 {
-                    const pass = [];
+                    const passive_connections = [];
                     for (let i = 0; i < connections[current_start].length; i++)
                     {
                         if (graph[connections[current_start][i]] == current_color)
@@ -102,15 +93,15 @@ export const solveMethods = {
                             }
                             
                             graph[connections[current_start][i]]++;
-                            pass.push(connections[current_start][i]);
+                            passive_connections.push(connections[current_start][i]);
                             busy = true;
                         }
                     }
 
                     const active_priority : priority[] = [];
-                    for (let j = 0; j < pass.length; j++)
+                    for (let j = 0; j < passive_connections.length; j++)
                     {
-                        active_priority.push({id:pass[j], priority:triangles[pass[j]]});
+                        active_priority.push({id:passive_connections[j], priority:triangles[passive_connections[j]]});
                     }
                     active_priority.sort((a,b) => { return a.priority - b.priority; });
 

@@ -34,11 +34,6 @@ export default defineComponent({
     this.style = getComputedStyle(this.screen)
     this.screen.focus()
 
-    this.circles.push(bake_circle({
-        color:this.style.getPropertyValue('--medium'),
-        border_color: this.style.getPropertyValue('--bright'),
-        radius: 15,
-    }))
     const colors = ['red','green','blue','yellow','orange','purple','pink','brown','black','white','gray','lime','cyan','magenta','olive','maroon','navy','teal','silver','indigo','violet']
     for(const color of colors)
     {
@@ -50,8 +45,6 @@ export default defineComponent({
     }
 
     this.load()
-    this.nodes[0].circle = this.circles[1]
-    this.update_colors()
     this.draw()
   },
 
