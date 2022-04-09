@@ -1,6 +1,16 @@
-# graph
+# description
 
-this is a work in progress graph app where i try to make a organized vue code
+color the graph with the least ammount of colors posible and two of the same color dont connect
+
+## commands
+
+left button to create node
+left button on a node to drag
+middle button to connect(if there is no legal target it will create a end node)
+right button to delete
+
+middle button on empty space to create node and connect
+left button on empety space to create a node and drag
 
 ## Project setup
 ```
