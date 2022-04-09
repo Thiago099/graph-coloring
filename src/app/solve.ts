@@ -24,6 +24,7 @@ export const solveMethods = {
         while (busy)
         {
             const triangles = [];
+            for (let i = 0; i < graph.length; i++) triangles.push(0);
 
             for (let i = 0; i < graph.length; i++)
             {
@@ -59,6 +60,7 @@ export const solveMethods = {
     
                 priority.sort((a,b) => { return a.priority - b.priority; });
             }
+            console.log(priority)   
 
             update_priority();
 

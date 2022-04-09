@@ -5,6 +5,7 @@ export interface circle{
     border_radius: number;
     surface: HTMLCanvasElement;
 }
+// let i = 0;
 
 export function bake_circle(props:any=null)
 {
@@ -26,7 +27,8 @@ export function bake_circle(props:any=null)
   ctx.closePath();
   ctx.fill();
   ctx.stroke();
-
+  // ctx.fillStyle = 'gray';
+  // ctx.fillText((++i).toString(), radius + border_radius, radius + border_radius); 
   return {surface,radius,border_radius} as circle;
 }
 
