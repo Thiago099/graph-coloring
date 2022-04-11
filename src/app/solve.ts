@@ -81,11 +81,9 @@ export const solveMethods = {
             busy = false
             for(const node of priority)
             {
-                console.log(priority)
                 active(node.id)
                 updatePriority()
             }
-            console.log(priority)
             function active(start)
             {
                 if(graph[start] == current_color)

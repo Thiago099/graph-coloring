@@ -5,6 +5,7 @@ export const mouseData = {
   connect_point:null,
   drag_offset:null,
   mouse:null,
+  drag_all_offsets:null,
 }
 
 export const mouseMethods = {
@@ -76,6 +77,16 @@ export const mouseMethods = {
         }
         this.nodes.push(point)
         this.connect_point = point
+      }else if(e.button == 2)
+      {
+        this.drag_all_offsets = []
+        for(const node of this.nodes)
+        {
+          this.drag_all_offsets.push({
+            x: node.position.x - this.mouse.x,
+            y: node.position.y - this.mouse.y
+          })
+        }
       }
     },
 
@@ -92,6 +103,15 @@ export const mouseMethods = {
       // on connect
       if(this.connect_point)
       {
+        this.draw()
+      }
+      if(this.drag_all_offsets)
+      {
+        for(let i = 0; i < this.nodes.length; i++)
+        {
+          this.nodes[i].position.x = this.mouse.x + this.drag_all_offsets[i].x
+          this.nodes[i].position.y = this.mouse.y + this.drag_all_offsets[i].y
+        }
         this.draw()
       }
     },
@@ -126,6 +146,7 @@ export const mouseMethods = {
       // clear state
       this.drag_point = null
       this.connect_point = null 
+      this.drag_all_offsets = null
       this.save()
       this.draw()
     },
