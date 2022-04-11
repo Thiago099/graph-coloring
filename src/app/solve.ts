@@ -119,7 +119,6 @@ export const solveMethods = {
                             busy = true
                         }
                     }
-
                     const active_priority  = [];
 
                     for(const passive of passive_connections)
