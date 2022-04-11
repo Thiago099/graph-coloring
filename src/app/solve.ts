@@ -1,13 +1,14 @@
+
 export const solveMethods = {
 
     solve()
     {
-        const graph = [];
+        const graph : number[] = [];
         for (let i = 0; i < this.nodes.length; i++) graph.push(0);
 
 
         //creates a array with all connections each node have
-        const connections = [];
+        const connections: number[][] = [];
 
         for (let i = 0; i < graph.length; i++)
             connections.push([]);
@@ -18,110 +19,139 @@ export const solveMethods = {
             connections[this.connections[i].from].push(this.connections[i].to);
         }
 
-        //color the graph
+        //find all loops in the graph
+        const loops: number[][] = [];
+
+
+        console.clear();
+
+        for(const node in graph)
+        {
+            dfs(node)
+        }
+
+        const node_triangle_count = Array(graph.length).fill(0)
+        const node_triangles = []
+        for(const node in graph) node_triangles[node] = []
+
+        const node_odd_count = Array(graph.length).fill(0)
+        const node_odds = []
+        for(const node in graph) node_odds[node] = []
+
+        for(const loop in loops)
+        {
+            if(loops[loop].length === 3)
+            {
+                for(const node of loops[loop])
+                {
+                    node_triangle_count[node]++
+                    node_triangles[node].push(loop)
+                }
+            }
+            else if(loops[loop].length % 2 === 1)
+            {
+                for(const node of loops[loop])
+                {
+                    node_odd_count[node]++
+                    node_odds[node].push(loop)
+                }
+            }
+        }
+
+
+        const priority = []
+        for (let i = 0; i < graph.length; i++)
+        {
+            priority.push({id:i, triangles:node_triangle_count[i], odds:node_odd_count[i]});
+        }
+        updatePriority()
+        function updatePriority()
+        {
+            priority.sort((a,b) => { 
+                const triangle_diff = b.triangles - a.triangles
+                return triangle_diff == 0 ? b.odds - a.odds : triangle_diff;
+             });
+        }
+
         let busy = true;
         let current_color = 0;
+
         while (busy)
         {
-            const triangles = [];
-
-            // count the triangles
-            for (let i = 0; i < graph.length; i++)
+            busy = false
+            for(const i of priority)
             {
-                triangles.push(0);
-                for (let j = 0; j < connections[i].length; j++)
-                {
-                    for (let k = 0; k < connections[connections[i][j]].length; k++)
-                    {
-                        if (connections[connections[i][j]][k] == i) continue;
-                        for (let l = 0; l < connections[connections[connections[i][j]][k]].length; l++)
-                        {
-                            if (connections[connections[connections[i][j]][k]][l] == i)
-                            {
-                                triangles[i]++;
-                            }
-                        }
-                            
-                    }
-                }
+                active(i.id)
+                updatePriority()
             }
-
-            interface priority{
-                id;
-                priority;
-            }
-
-            const priority : priority[] = []
-            function update_priority()
+            function active(start)
             {
-                for (let i = 0; i < graph.length; i++)
-                {
-                    priority.push({id:i, priority:triangles[i]})
-                }
-    
-                priority.sort((a,b) => { return a.priority - b.priority; });
-            }
-            console.log(priority)   
-
-            update_priority();
-
-            
-            busy = false;
-
-            for (let i = priority.length - 1; i >= 0; i--)
-            {
-                active(priority[i].id);
-                update_priority();
-            }
-            function active(current_start)
-            {
-                if (graph[current_start] == current_color)
+                if(graph[start] == current_color)
                 {
                     const passive_connections = [];
-                    for (let i = 0; i < connections[current_start].length; i++)
+                    for(const connection of connections[start])
                     {
-                        if (graph[connections[current_start][i]] == current_color)
+                        if(graph[connection] === current_color)
                         {
-                            connections[connections[current_start][i]] = connections[connections[current_start][i]].filter(connection => connection != current_start);
-                            for (let j = 0; j < connections[current_start].length; j++)
+                            connections[connection] = connections[connection].filter(connection => connection != start);
+                            for(const triangles of node_triangles)
                             {
-                                if (connections[current_start][j] == connections[current_start][i]) continue;
-                                for (let k = 0; k < connections[connections[current_start][j]].length; k++)
+                                for(const triangle of triangles)
                                 {
-                                    if (connections[connections[current_start][j]][k] == connections[current_start][i])
+                                    for(const node of loops[triangle])
                                     {
-                                        triangles[connections[current_start][i]]--; 
+                                        node_triangle_count[node]--
+                                        node_triangles[node] = node_triangles[node].filter(i => loops[i] === triangle)
                                     }
                                 }
                             }
-                            
-                            graph[connections[current_start][i]]++;
-                            passive_connections.push(connections[current_start][i]);
-                            busy = true;
+                            for(const odds of node_odds)
+                            {
+                                for(const triangle of odds)
+                                {
+                                    for(const node of loops[triangle])
+                                    {
+                                        node_odd_count[node]--
+                                        node_odds[node] = node_odds[node].filter(i => loops[i] === triangle)
+                                    }
+                                }
+                            }
+                            graph[connection]++
+                            passive_connections.push(connection)
+                            // priority = priority.filter(item=>item.id != connection)
+                            busy = true
                         }
                     }
+                    const active_priority  = [];
 
-                    const active_priority : priority[] = [];
-                    for (let j = 0; j < passive_connections.length; j++)
+                    for(const passive in passive_connections)
                     {
-                        active_priority.push({id:passive_connections[j], priority:triangles[passive_connections[j]]});
+                        active_priority.push({id:passive, triangles:node_triangle_count[passive], odds:node_odd_count[passive]});
                     }
-                    active_priority.sort((a,b) => { return a.priority - b.priority; });
+
+                    active_priority.sort((a,b) => { 
+                        const triangle_diff = b.triangles - a.triangles
+                        return triangle_diff == 0 ? b.odds - a.odds : triangle_diff;
+                    });
 
                     for (let j = active_priority.length-1; j >= 0; j--)
                     {
                         passive(active_priority[j].id);
                     }
                 }
+
             }
-            function passive(current_start)
+            function passive(start)
             {
-                const passive_priority : priority[] = [];
-                for (let i = 0; i < connections[current_start].length; i++)
+                const passive_priority = [];
+                for(const passive of connections[start])
                 {
-                    passive_priority.push({id:connections[current_start][i], priority:triangles[connections[current_start][i]]});
+                    passive_priority.push({id:passive, triangles:node_triangle_count[passive], odds:node_odd_count[passive]});
                 }
-                passive_priority.sort((a,b) => { return a.priority - b.priority; });
+                passive_priority.sort((a,b) => { 
+                    const triangle_diff = b.triangles - a.triangles
+                    return triangle_diff == 0 ? b.odds - a.odds : triangle_diff;
+                });
                 for (let i = passive_priority.length-1; i >= 0 ; i--)
                 {
                     active(passive_priority[i].id);
@@ -129,6 +159,53 @@ export const solveMethods = {
             }
             current_color++;
         }
+
+
+        function dfs(node,stack:number[]=[],visited:number[]= [].fill(0, 0, graph.length))
+        {
+            visited[node] = 1;
+            for(const current of connections[node])
+            {
+                if(visited[current] === 1)
+                {
+                    let current_stack = [...stack,node]
+                    let i = 0
+                    for(; i < current_stack.length; i++)
+                    if(current_stack[i] == current)
+                    break
+                    if(i !== current_stack.length)
+                    {
+                        //remove all before i
+                        current_stack = current_stack.splice(i)
+                    }
+                    current_stack = current_stack.map(item=>Number(item));
+                    if(current_stack.length <= 2) continue
+                    
+                    for(const loop of loops)
+                    {
+                        if(loop.length !== current_stack.length) continue
+                        let found = false
+                        for(const number of current_stack)
+                        {
+                            if(!loop.includes(number))
+                            {
+                                found = true
+                                break
+                            }
+                        }
+                        if(!found) return
+                    }
+                    if(connections[current_stack[0]].includes(node))
+
+                    loops.push(current_stack);
+                }
+                else
+                {
+                    dfs(current, [...stack,Number(node)],[...visited]);
+                }
+            }
+        }
         return graph
+
     }
 }
