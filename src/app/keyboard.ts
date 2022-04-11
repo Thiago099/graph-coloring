@@ -20,8 +20,6 @@ export const keyboardMethods = {
                 save_link.download = 'graph.json'
                 save_link.click()
                 save_link.remove()
-                this.keys['s'] = false
-                this.keys['Control'] = false
             }
 
             if(e.key == 'l')
@@ -48,8 +46,6 @@ export const keyboardMethods = {
                 }
                 load_file.click()
                 load_file.remove()
-                this.keys['s'] = false
-                this.keys['Control'] = false
             }
 
             if(e.key == 'c')
@@ -67,8 +63,6 @@ export const keyboardMethods = {
     onKeyUp(e:KeyboardEvent)
     {
         this.keys[e.key] = false
-
-        if(e.ctrlKey) this.keys['Control'] = false
         
     }
 }

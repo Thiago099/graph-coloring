@@ -29,7 +29,7 @@ export const graphicsMethods = {
 
       for(const point of this.nodes)
       {
-        draw_circle(ctx, point.circle, point.position)
+        draw_circle(ctx, point.circle, point.position,this.nodes.indexOf(point))
       }
       
     },
