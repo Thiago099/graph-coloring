@@ -10,11 +10,15 @@ middle button to connect(if there is no legal target it will create a end node)
 right button to delete
 
 middle button on empty space to create node and connect
+
 left button on empty space to create a node and drag
+
 right button on empty space to move everything
 
 ctrl+s to save in file 
+
 ctrl+l to load in file
+
 ctrl+c to clear
 
 ## Install node
