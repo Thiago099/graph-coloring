@@ -2,6 +2,8 @@
 
 color the graph with the least ammount of colors posible so two of the same color dont connect
 
+![](https://i.imgur.com/6sbeVbn.png)
+
 ## commands
 
 left button to create node
