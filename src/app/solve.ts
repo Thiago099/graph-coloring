@@ -30,6 +30,52 @@ export const solveMethods = {
             dfs(node)
         }
 
+        function dfs(node,stack:number[]=[],visited:number[]= [].fill(0, 0, graph.length))
+        {
+            visited[node] = 1;
+            for(const current of connections[node])
+            {
+                if(visited[current] === 1)
+                {
+                    let current_stack = [...stack, node]
+                    let i = 0
+                    for(; i < current_stack.length; i++)
+                    if(current_stack[i] == current)
+                    break
+                    if(i !== current_stack.length)
+                    {
+                        //remove all before i
+                        current_stack = current_stack.splice(i)
+                    }
+                    current_stack = current_stack.map(item => Number(item));
+                    if(current_stack.length <= 2) continue
+                    if(!connections[current_stack[0]].includes(node)) continue
+                    if(current_stack.length % 2 === 0) continue
+                    let found = true
+                    for(const loop of loops)
+                    {
+                        found = false
+                        if(loop.length !== current_stack.length) continue
+                        for(const number of current_stack)
+                        {
+                            if(!loop.includes(number))
+                            {
+                                found = true
+                                break
+                            }
+                        }
+                        if(!found) return
+                    }
+                    loops.push(current_stack);
+                    return
+                }
+                else
+                {
+                    dfs(current, [...stack,Number(node)],[...visited]);
+                }
+            }
+        }
+
         const node_triangle_count = Array(graph.length).fill(0)
         const node_triangles = []
         for(const node in graph) node_triangles[node] = []
@@ -48,7 +94,7 @@ export const solveMethods = {
                     node_triangles[node].push(loop)
                 }
             }
-            else if(loops[loop].length % 2 === 1)
+            else 
             {
                 for(const node of loops[loop])
                 {
@@ -154,51 +200,6 @@ export const solveMethods = {
             current_color++;
         }
 
-
-        function dfs(node,stack:number[]=[],visited:number[]= [].fill(0, 0, graph.length))
-        {
-            visited[node] = 1;
-            for(const current of connections[node])
-            {
-                if(visited[current] === 1)
-                {
-                    let current_stack = [...stack,node]
-                    let i = 0
-                    for(; i < current_stack.length; i++)
-                    if(current_stack[i] == current)
-                    break
-                    if(i !== current_stack.length)
-                    {
-                        //remove all before i
-                        current_stack = current_stack.splice(i)
-                    }
-                    current_stack = current_stack.map(item=>Number(item));
-                    if(current_stack.length <= 2) continue
-                    
-                    for(const loop of loops)
-                    {
-                        if(loop.length !== current_stack.length) continue
-                        let found = false
-                        for(const number of current_stack)
-                        {
-                            if(!loop.includes(number))
-                            {
-                                found = true
-                                break
-                            }
-                        }
-                        if(!found) return
-                    }
-                    if(connections[current_stack[0]].includes(node))
-
-                    loops.push(current_stack);
-                }
-                else
-                {
-                    dfs(current, [...stack,Number(node)],[...visited]);
-                }
-            }
-        }
         //graph
         //node_triangle_count
         //node_odd_count

@@ -3,6 +3,31 @@
 ## disclaimer
 i changed from vue@cli to vit so it will require to npm install again and the command changed from npm run serve
 to npm run dev
+color the graph with the least ammount of colors posible so two of the same color dont connect
+
+![](https://i.imgur.com/6sbeVbn.png)
+
+## commands
+
+left button to create node
+left button on a node to drag
+middle button to connect(if there is no legal target it will create a end node)
+right button to delete
+
+middle button on empty space to create node and connect
+
+left button on empty space to create a node and drag
+
+right button on empty space to move everything
+
+ctrl+s to save in file 
+
+ctrl+l to load in file
+
+ctrl+c to clear
+
+## Install node
+https://nodejs.org/en/download/
 
 ## Project setup
 ```
