@@ -1,4 +1,5 @@
 # description
+![https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip]
 
 color the graph with the least ammount of colors posible so two of the same color dont connect
 
