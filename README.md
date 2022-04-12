@@ -1,11 +1,12 @@
 # graph
 
-## disclaimer
-i changed from vue@cli to vit so it will require to npm install again and the command changed from npm run serve
-to npm run dev
 color the graph with the least ammount of colors posible so two of the same color dont connect
 
 ![](https://i.imgur.com/6sbeVbn.png)
+
+
+## disclaimer
+i changed from vue@cli to vit so it will require to npm install again, and the run command changed from npm run serve to npm run dev
 
 ## commands
 
