@@ -6,7 +6,7 @@ color the graph with the least ammount of colors posible so two of the same colo
 
 
 ## disclaimer
-i changed from vue@cli to vit so it will require to npm install again, and the run command changed from npm run serve to npm run dev
+i changed from vue@cli to vite so it will require to npm install again, and the run command changed from npm run serve to npm run dev
 
 ## commands
 
