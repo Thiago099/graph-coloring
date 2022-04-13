@@ -76,7 +76,7 @@ export const solveMethods = {
                 }
                 else
                 {
-                    walk(current, [...stack,Number(node)],[...visited]);
+                    walk(current, [...stack, Number(node)],[...visited]);
                 }
             }
         }
