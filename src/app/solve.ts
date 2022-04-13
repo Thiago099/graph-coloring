@@ -163,22 +163,22 @@ export const solveMethods = {
                             busy = true
                         }
                     }
-                    const active_priority  = [];
+                    const passive_priority  = [];
 
                     for(const passive of passive_connections)
                     {
-                        active_priority.push({
+                        passive_priority.push({
                             id:passive, 
                             triangles:connections[passive].reduce((previus, current)=> previus + node_triangle_count[current]), 
                             odds:connections[passive].reduce((previus, current)=> previus + node_odd_count[current])
                         });
                     }
 
-                    active_priority.sort((a,b) => { 
+                    passive_priority.sort((a,b) => { 
                         const triangle_diff = b.triangles - a.triangles
                         return triangle_diff == 0 ? b.odds - a.odds : triangle_diff;
                     });
-                    for(const active of active_priority)
+                    for(const active of passive_priority)
                     {
                         passive(active.id);
                     }
@@ -187,16 +187,16 @@ export const solveMethods = {
             }
             function passive(start)
             {
-                const passive_priority = [];
+                const active_priority = [];
                 for(const passive of connections[start])
                 {
-                    passive_priority.push({id:passive, triangles:node_triangle_count[passive], odds:node_odd_count[passive]});
+                    active_priority.push({id:passive, triangles:node_triangle_count[passive], odds:node_odd_count[passive]});
                 }
-                passive_priority.sort((a,b) => { 
+                active_priority.sort((a,b) => { 
                     const triangle_diff = b.triangles - a.triangles
                     return triangle_diff == 0 ? b.odds - a.odds : triangle_diff;
                 });
-                for(const passive of passive_priority)
+                for(const passive of active_priority)
                 {
                     active(passive.id);
                 }
