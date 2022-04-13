@@ -30,7 +30,7 @@ export const solveMethods = {
             dfs(node)
         }
 
-        function dfs(node,stack:number[]=[],visited:number[]= [].fill(0, 0, graph.length))
+        function dfs(node, stack:number[]=[], visited:number[]= [].fill(0, 0, graph.length))
         {
             visited[node] = 1;
             for(const current of connections[node])
@@ -167,7 +167,11 @@ export const solveMethods = {
 
                     for(const passive of passive_connections)
                     {
-                        active_priority.push({id:passive, triangles:node_triangle_count[passive], odds:node_odd_count[passive]});
+                        active_priority.push({
+                            id:passive, 
+                            triangles:connections[passive].reduce((previus, current)=> previus + node_triangle_count[current]), 
+                            odds:connections[passive].reduce((previus, current)=> previus + node_odd_count[current])
+                        });
                     }
 
                     active_priority.sort((a,b) => { 
