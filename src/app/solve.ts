@@ -176,10 +176,15 @@ export const solveMethods = {
 
                     for(const passive of passive_connections)
                     {
+                        // passive_priority.push({
+                        //     id : passive, 
+                        //     triangles : connections[passive].reduce((previus, current) => previus + node_triangle_count[current],0), 
+                        //     odds : connections[passive].reduce((previus, current) => previus + node_odd_count[current],0)
+                        // });
                         passive_priority.push({
                             id : passive, 
-                            triangles : connections[passive].reduce((previus, current) => previus + node_triangle_count[current],0), 
-                            odds : connections[passive].reduce((previus, current) => previus + node_odd_count[current],0)
+                            triangles : connections[passive],
+                            odds : node_odd_count[passive]
                         });
                     }
 
