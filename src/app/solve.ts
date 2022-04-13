@@ -30,7 +30,7 @@ export const solveMethods = {
             dfs(node)
         }
 
-        function dfs(node, stack:number[]=[], visited:number[]= [].fill(0, 0, graph.length))
+        function dfs(node, stack : number[] = [], visited : number[] = [].fill(0, 0, graph.length))
         {
             visited[node] = 1;
             for(const current of connections[node])
@@ -44,7 +44,6 @@ export const solveMethods = {
                     break
                     if(i !== current_stack.length)
                     {
-                        //remove all before i
                         current_stack = current_stack.splice(i)
                     }
                     current_stack = current_stack.map(item => Number(item));
@@ -168,9 +167,9 @@ export const solveMethods = {
                     for(const passive of passive_connections)
                     {
                         passive_priority.push({
-                            id:passive, 
-                            triangles:connections[passive].reduce((previus, current)=> previus + node_triangle_count[current]), 
-                            odds:connections[passive].reduce((previus, current)=> previus + node_odd_count[current])
+                            id : passive, 
+                            triangles : connections[passive].reduce((previus, current) => previus + node_triangle_count[current]), 
+                            odds : connections[passive].reduce((previus, current) => previus + node_odd_count[current])
                         });
                     }
 
@@ -190,7 +189,11 @@ export const solveMethods = {
                 const active_priority = [];
                 for(const passive of connections[start])
                 {
-                    active_priority.push({id:passive, triangles:node_triangle_count[passive], odds:node_odd_count[passive]});
+                    active_priority.push({
+                        id : passive, 
+                        triangles : node_triangle_count[passive],
+                        odds : node_odd_count[passive]
+                    });
                 }
                 active_priority.sort((a,b) => { 
                     const triangle_diff = b.triangles - a.triangles
