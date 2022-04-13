@@ -20,6 +20,8 @@ export const keyboardMethods = {
                 save_link.download = 'graph.json'
                 save_link.click()
                 save_link.remove()
+                this.keys['Control'] = false
+                this.keys[e.key] = false
             }
 
             if(e.key == 'l')
@@ -46,6 +48,8 @@ export const keyboardMethods = {
                 }
                 load_file.click()
                 load_file.remove()
+                this.keys['Control'] = false
+                this.keys[e.key] = false
             }
 
             if(e.key == 'c')
@@ -56,6 +60,8 @@ export const keyboardMethods = {
                 this.nodes = []
                 this.save()
                 this.draw()
+                this.keys['Control'] = false
+                this.keys[e.key] = false
             }
         }
     },
