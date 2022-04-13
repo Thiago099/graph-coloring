@@ -27,10 +27,10 @@ export const solveMethods = {
 
         for(const node in graph)
         {
-            dfs(node)
+            walk(node)
         }
 
-        function dfs(node, stack : number[] = [], visited : number[] = [].fill(0, 0, graph.length))
+        function walk(node, stack : number[] = [], visited : number[] = [].fill(0, 0, graph.length))
         {
             visited[node] = 1;
             for(const current of connections[node])
@@ -38,18 +38,23 @@ export const solveMethods = {
                 if(visited[current] === 1)
                 {
                     let current_stack = [...stack, node]
-                    let i = 0
-                    for(; i < current_stack.length; i++)
-                    if(current_stack[i] == current)
-                    break
-                    if(i !== current_stack.length)
+                    let loop_point = 0
+
+                    for(; loop_point < current_stack.length; loop_point++)
+                        if(current_stack[loop_point] == current)
+                            break
+
+                    if(loop_point !== current_stack.length)
                     {
-                        current_stack = current_stack.splice(i)
+                        current_stack = current_stack.splice(loop_point)
                     }
+
                     current_stack = current_stack.map(item => Number(item));
+
                     if(current_stack.length <= 2) continue
                     if(!connections[current_stack[0]].includes(node)) continue
                     if(current_stack.length % 2 === 0) continue
+
                     let found = true
                     for(const loop of loops)
                     {
@@ -65,12 +70,13 @@ export const solveMethods = {
                         }
                         if(!found) return
                     }
+                    
                     loops.push(current_stack);
                     return
                 }
                 else
                 {
-                    dfs(current, [...stack,Number(node)],[...visited]);
+                    walk(current, [...stack,Number(node)],[...visited]);
                 }
             }
         }
@@ -110,7 +116,11 @@ export const solveMethods = {
             priority = []
             for (let i = 0; i < graph.length; i++)
             {
-                priority.push({id:i, triangles:node_triangle_count[i], odds:node_odd_count[i]});
+                priority.push({
+                    id : i, 
+                    triangles : node_triangle_count[i],
+                    odds : node_odd_count[i]
+                });
             }
             priority.sort((a,b) => { 
                 const triangle_diff = b.triangles - a.triangles
