@@ -178,8 +178,8 @@ export const solveMethods = {
                     {
                         passive_priority.push({
                             id : passive, 
-                            triangles : connections[passive].reduce((previus, current) => previus + node_triangle_count[current],0), 
-                            odds : connections[passive].reduce((previus, current) => previus + node_odd_count[current],0)
+                            triangles : connections[passive].reduce((pervious, current) => pervious + node_triangle_count[current],0), 
+                            odds : connections[passive].reduce((previous, current) => previous + node_odd_count[current],0)
                         });
                     }
 
