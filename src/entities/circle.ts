@@ -32,11 +32,7 @@ export function bake_circle(props:any=null)
   return {surface,radius,border_radius} as circle;
 }
 
-export function draw_circle(ctx:CanvasRenderingContext2D,circle:circle, position:point, index:number)
+export function draw_circle(ctx:CanvasRenderingContext2D,circle:circle, position:point)
 {
-  
   ctx.drawImage(circle.surface, position.x-circle.radius-circle.border_radius, position.y-circle.radius-circle.border_radius);
-  ctx.fillStyle = 'white';
-  ctx.textAlign = "center";
-  ctx.fillText(index.toFixed(), position.x, position.y);
 }
