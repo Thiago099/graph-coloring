@@ -125,6 +125,7 @@ export const mouseMethods = {
         const point = this.nodes.find(p => pointDistance(p.position,this.mouse) < p.circle.radius)
         if(point)
         {
+          if(this.connect_point != point)
           this.connections.push({
             from: this.nodes.indexOf(this.connect_point),
             to: this.nodes.indexOf(point),
