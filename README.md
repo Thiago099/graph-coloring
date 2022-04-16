@@ -5,7 +5,7 @@ color the graph with the least ammount of colors posible so two of the same colo
 ![](https://i.imgur.com/EKBIEHL.png)
 
 
-## disclaimer
+## if you cloned this project in the past
 i changed from vue@cli to vite so it will require to npm install again, and the run command changed from npm run serve to npm run dev
 
 ## commands
