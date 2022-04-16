@@ -81,7 +81,6 @@ export const solveMethods = {
             }
         }
 
-
         const node_odds = []
         for(const node in graph) node_odds[node] = []
 
@@ -108,6 +107,7 @@ export const solveMethods = {
                 return b.odds - a.odds
             });
         }
+
 
         let busy = true;
         let current_color = 0;
@@ -173,7 +173,7 @@ export const solveMethods = {
                 {
                     active_priority.push({
                         id : passive, 
-                        odds : node_odds[passive].length - connections[passive].reduce((previous, current) => previous + node_odds[current].filter(item=> !loops[item].includes(passive)).length, 0)
+                        odds : node_odds[passive].length - connections[passive].reduce((previous, current) => previous + node_odds[current].filter(item=> loops[item].includes(passive)).length, 0)
                     });
                 }
                 active_priority.sort((a,b) => { 
@@ -186,6 +186,7 @@ export const solveMethods = {
             }
             current_color++;
         }
+        
 
         //graph
         //node_odd_count
