@@ -82,7 +82,6 @@ export const solveMethods = {
         }
 
 
-        const node_odd_count = Array(graph.length).fill(0)
         const node_odds = []
         for(const node in graph) node_odds[node] = []
 
@@ -90,11 +89,9 @@ export const solveMethods = {
         {
             for(const node of loops[loop])
             {
-                node_odd_count[node]++
                 node_odds[node].push(loop)
             }
         }
-        
         let priority = []
         updatePriority()
         function updatePriority()
@@ -104,7 +101,7 @@ export const solveMethods = {
             {
                 priority.push({
                     id : i, 
-                    odds : node_odd_count[i]
+                    odds : node_odds[i].length - connections[i].reduce((previous, current) => previous + node_odds[current].filter(item=> !loops[item].includes(i)).length, 0)
                 });
             }
             priority.sort((a,b) => { 
@@ -138,7 +135,6 @@ export const solveMethods = {
                             {
                                 for(const node of loops[odd])
                                 {
-                                    node_odd_count[node]--
                                     node_odds[node] = node_odds[node].filter(i => i != odd)
                                 }
                             }
@@ -154,7 +150,7 @@ export const solveMethods = {
                         passive_priority.push({
                             id : passive, 
                             odds :connections[passive].reduce((previous, current) => {
-                                const current_cost = node_odd_count[current] - connections[current].reduce((previous, current) => previous + node_odd_count[current], 0)
+                                const current_cost = node_odds[current].length - connections[current].reduce((previous, current_inner) => previous + node_odds[current_inner].filter(item=> !loops[item].includes(current)).length, 0)
                                 return current_cost > previous ? current_cost : previous
                             }, 0)
                         });
@@ -165,7 +161,6 @@ export const solveMethods = {
                     });
                     for(const active of passive_priority)
                     {
-                        console.log(active)
                         passive(active.id);
                     }
                 }
@@ -178,7 +173,7 @@ export const solveMethods = {
                 {
                     active_priority.push({
                         id : passive, 
-                        odds : node_odd_count[passive] - connections[passive].reduce((previous, current) => previous + node_odd_count[current], 0)
+                        odds : node_odds[passive].length - connections[passive].reduce((previous, current) => previous + node_odds[current].filter(item=> !loops[item].includes(passive)).length, 0)
                     });
                 }
                 active_priority.sort((a,b) => { 
@@ -194,7 +189,7 @@ export const solveMethods = {
 
         //graph
         //node_odd_count
-        return {node_odd_count, graph}
+        return graph
 
     }
 }
