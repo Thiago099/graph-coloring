@@ -81,9 +81,6 @@ export const solveMethods = {
             }
         }
 
-        const node_triangle_count = Array(graph.length).fill(0)
-        const node_triangles = []
-        for(const node in graph) node_triangles[node] = []
 
         const node_odd_count = Array(graph.length).fill(0)
         const node_odds = []
@@ -91,21 +88,10 @@ export const solveMethods = {
 
         for(const loop in loops)
         {
-            if(loops[loop].length === 3)
+            for(const node of loops[loop])
             {
-                for(const node of loops[loop])
-                {
-                    node_triangle_count[node]++
-                    node_triangles[node].push(loop)
-                }
-            }
-            else 
-            {
-                for(const node of loops[loop])
-                {
-                    node_odd_count[node]++
-                    node_odds[node].push(loop)
-                }
+                node_odd_count[node]++
+                node_odds[node].push(loop)
             }
         }
         
@@ -118,13 +104,11 @@ export const solveMethods = {
             {
                 priority.push({
                     id : i, 
-                    triangles : node_triangle_count[i],
                     odds : node_odd_count[i]
                 });
             }
             priority.sort((a,b) => { 
-                const triangle_diff = b.triangles - a.triangles
-                return triangle_diff == 0 ? b.odds - a.odds : triangle_diff;
+                return b.odds - a.odds
              });
         }
 
@@ -149,15 +133,6 @@ export const solveMethods = {
                         if(graph[connection] === current_color)
                         {
                             connections[connection] = connections[connection].filter(connection => connection != start);
-                            const triangles = node_triangles[start]
-                            for(const triangle of triangles)
-                            {
-                                for(const node of loops[triangle])
-                                {
-                                    node_triangle_count[node]--
-                                    node_triangles[node] = node_triangles[node].filter(i => i != triangle)
-                                }
-                            }
                             const odds = node_odds[start]
                             for(const odd of odds)
                             {
@@ -178,14 +153,12 @@ export const solveMethods = {
                     {
                         passive_priority.push({
                             id : passive, 
-                            triangles : connections[passive].reduce((pervious, current) => pervious + node_triangle_count[current],0), 
-                            odds : connections[passive].reduce((previous, current) => previous + node_odd_count[current],0)
+                            odds :connections[passive].reduce((previous, current) => previous + node_odd_count[current],0)
                         });
                     }
 
                     passive_priority.sort((a,b) => { 
-                        const triangle_diff = b.triangles - a.triangles
-                        return triangle_diff == 0 ? b.odds - a.odds : triangle_diff;
+                        return b.odds - a.odds ;
                     });
                     for(const active of passive_priority)
                     {
@@ -202,13 +175,11 @@ export const solveMethods = {
                 {
                     active_priority.push({
                         id : passive, 
-                        triangles : node_triangle_count[passive],
                         odds : node_odd_count[passive]
                     });
                 }
                 active_priority.sort((a,b) => { 
-                    const triangle_diff = b.triangles - a.triangles
-                    return triangle_diff == 0 ? b.odds - a.odds : triangle_diff;
+                    return b.odds - a.odds;
                 });
                 for(const passive of active_priority)
                 {
@@ -219,7 +190,6 @@ export const solveMethods = {
         }
 
         //graph
-        //node_triangle_count
         //node_odd_count
         return graph
 
