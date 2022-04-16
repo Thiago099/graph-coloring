@@ -8,6 +8,7 @@ export const graphicsData = {
     connections:[],
     lines:[],
     style:null,
+    node_odd_count:[],
 }
 
 export const graphicsMethods = {
@@ -31,8 +32,8 @@ export const graphicsMethods = {
       {
         draw_circle(ctx, point.circle, point.position)
         ctx.fillStyle = 'white';
-      ctx.textAlign = "center";
-      ctx.fillText(this.nodes.indexOf(point).toFixed(), point.position.x, point.position.y+3);
+        ctx.textAlign = "center";
+        ctx.fillText(this.nodes.indexOf(point).toFixed(), point.position.x, point.position.y+3);
       }
       
     },
@@ -52,10 +53,11 @@ export const graphicsMethods = {
 
     update_colors()
     {
-        const colors = this.solve();
+        const {node_odd_count, graph} = this.solve();
+        this.node_odd_count = node_odd_count
         for (let i = 0; i < this.nodes.length; i++)
         {
-            this.nodes[i].circle = this.circles[colors[i]];
+            this.nodes[i].circle = this.circles[graph[i]];
         }
     },
 

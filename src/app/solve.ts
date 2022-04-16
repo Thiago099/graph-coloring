@@ -109,7 +109,7 @@ export const solveMethods = {
             }
             priority.sort((a,b) => { 
                 return b.odds - a.odds
-             });
+            });
         }
 
         let busy = true;
@@ -153,7 +153,7 @@ export const solveMethods = {
                     {
                         passive_priority.push({
                             id : passive, 
-                            odds :connections[passive].reduce((previous, current) => previous + node_odd_count[current],0)
+                            odds :connections[passive].reduce((previous, current) => node_odd_count[current] > previous ? node_odd_count[current] : previous, 0)
                         });
                     }
 
@@ -191,7 +191,7 @@ export const solveMethods = {
 
         //graph
         //node_odd_count
-        return graph
+        return {node_odd_count, graph}
 
     }
 }
