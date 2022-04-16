@@ -153,7 +153,10 @@ export const solveMethods = {
                     {
                         passive_priority.push({
                             id : passive, 
-                            odds :connections[passive].reduce((previous, current) => node_odd_count[current] > previous ? node_odd_count[current] : previous, 0)
+                            odds :connections[passive].reduce((previous, current) => {
+                                const current_cost = node_odd_count[current] - connections[current].reduce((previous, current) => previous + node_odd_count[current], 0)
+                                return current_cost > previous ? current_cost : previous
+                            }, 0)
                         });
                     }
 
@@ -175,7 +178,7 @@ export const solveMethods = {
                 {
                     active_priority.push({
                         id : passive, 
-                        odds : node_odd_count[passive]
+                        odds : node_odd_count[passive] - connections[passive].reduce((previous, current) => previous + node_odd_count[current], 0)
                     });
                 }
                 active_priority.sort((a,b) => { 

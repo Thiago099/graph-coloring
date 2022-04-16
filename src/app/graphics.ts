@@ -31,9 +31,9 @@ export const graphicsMethods = {
       for(const point of this.nodes)
       {
         draw_circle(ctx, point.circle, point.position)
-        ctx.fillStyle = 'white';
-        ctx.textAlign = "center";
-        ctx.fillText(this.nodes.indexOf(point).toFixed(), point.position.x, point.position.y+3);
+        // ctx.fillStyle = 'white';
+        // ctx.textAlign = "center";
+        // ctx.fillText(this.node_odd_count[this.nodes.indexOf(point)].toFixed(), point.position.x, point.position.y+3);
       }
       
     },
@@ -54,7 +54,7 @@ export const graphicsMethods = {
     update_colors()
     {
         const {node_odd_count, graph} = this.solve();
-        this.node_odd_count = node_odd_count
+        // this.node_odd_count = node_odd_count
         for (let i = 0; i < this.nodes.length; i++)
         {
             this.nodes[i].circle = this.circles[graph[i]];
