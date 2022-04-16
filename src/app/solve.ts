@@ -182,7 +182,6 @@ export const solveMethods = {
                 }
             }
             current_color++;
-            break
         }
         
 
