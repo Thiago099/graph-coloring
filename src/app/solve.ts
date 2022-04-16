@@ -150,7 +150,7 @@ export const solveMethods = {
                         passive_priority.push({
                             id : passive, 
                             odds :connections[passive].reduce((previous, current) => {
-                                const current_cost = node_odds[current].length - connections[current].reduce((previous, current_inner) => previous + node_odds[current_inner].filter(item=> !loops[item].includes(current)).length, 0)
+                                const current_cost = node_odds[current].length - connections[current].reduce((previous, current_inner) => previous + node_odds[current_inner].filter(item=> loops[item].includes(current)).length, 0)
                                 return current_cost > previous ? current_cost : previous
                             }, 0)
                         });
