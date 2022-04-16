@@ -130,14 +130,7 @@ export const solveMethods = {
                         if(graph[connection] === current_color)
                         {
                             connections[connection] = connections[connection].filter(connection => connection != start);
-                            const odds = node_odds[start]
-                            for(const odd of odds)
-                            {
-                                for(const node of loops[odd])
-                                {
-                                    node_odds[node] = node_odds[node].filter(i => i != odd)
-                                }
-                            }
+
                             graph[connection]++
                             passive_connections.push(connection)
                             busy = true
@@ -150,7 +143,7 @@ export const solveMethods = {
                         passive_priority.push({
                             id : passive, 
                             odds :connections[passive].reduce((previous, current) => {
-                                const current_cost = node_odds[current].length - connections[current].reduce((previous, current_inner) => previous + node_odds[current_inner].filter(item=> loops[item].includes(current)).length, 0)
+                                const current_cost = node_odds[current].length - connections[current].reduce((previous, current_inner) => previous + node_odds[current_inner].filter(item=> !loops[item].includes(current)).length, 0)
                                 return current_cost > previous ? current_cost : previous
                             }, 0)
                         });
@@ -173,7 +166,7 @@ export const solveMethods = {
                 {
                     active_priority.push({
                         id : passive, 
-                        odds : node_odds[passive].length - connections[passive].reduce((previous, current) => previous + node_odds[current].filter(item=> loops[item].includes(passive)).length, 0)
+                        odds : node_odds[passive].length - connections[passive].reduce((previous, current) => previous + node_odds[current].filter(item=> !loops[item].includes(passive)).length, 0)
                     });
                 }
                 active_priority.sort((a,b) => { 
