@@ -125,10 +125,10 @@ export const solveMethods = {
                 if(graph[start] == current_color)
                 {
                     const passive_connections = [];
-                    const odds = node_odds[start]
                     for(const odd_id in node_odds)
                     {
-                        node_odds[odd_id] = node_odds[odd_id].filter(item => !odds.includes(item))
+                        if(odd_id != start)
+                        node_odds[odd_id] = node_odds[odd_id].filter(item => !node_odds[start].includes(item))
                     }
                     for(const connection of connections[start])
                     {
