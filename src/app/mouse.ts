@@ -125,17 +125,19 @@ export const mouseMethods = {
         const point = this.nodes.find(p => pointDistance(p.position,this.mouse) < p.circle.radius)
         if(point)
         {
+          const from = this.nodes.indexOf(this.connect_point)
+          const to = this.nodes.indexOf(point)
           if(this.connect_point != point && !this.connections.some(
             connection => 
-              (connection.from == this.nodes.indexOf(this.connect_point) && connection.to == this.nodes.indexOf(point)) ||
-              (connection.to == this.nodes.indexOf(this.connect_point) && connection.from == this.nodes.indexOf(point))
+              (connection.from ==  from && connection.to == to ||
+              (connection.to == from && connection.from == to)
             )
-          ) 
+          ))
               
           {
             this.connections.push({
-              from: this.nodes.indexOf(this.connect_point),
-              to: this.nodes.indexOf(point),
+              from: from,
+              to: to,
             })
           }
         }
