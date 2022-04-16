@@ -32,7 +32,7 @@ https://nodejs.org/en/download/
 
 ## Project setup
 ```
-npm install
+npm installCancel
 ```
 
 ### Compiles and hot-reloads for development
