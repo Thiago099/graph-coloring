@@ -112,7 +112,7 @@ export const solveMethods = {
                 function cauculate_priority(obj,i:number,j:number)
                 {
                     
-                    let value =  node_odds[i].filter(item => !loops[item].includes(j) && loops[item].every(item => graph[item] > current_color || connections[i].includes(item) || item == i)) 
+                    let value =  node_odds[i].filter(item=> !loops[item].includes(j) && loops[item].every(item => graph[item] > current_color || connections[i].includes(item) || item == i)) 
                     const cost = []
                     if(value.length != 0)
                     {
