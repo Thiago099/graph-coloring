@@ -104,15 +104,18 @@ export const solveMethods = {
         const done = Array(graph.length).fill(false);
         while (true)
         {
+            // cauculate initial priority
             let priority = []
             for (let i = 0; i < graph.length; i++)
             {
                 priority.push({
                     id : i, 
-                    odds:node_odds[i].length
+                    odds : node_odds[i].length
                 });
             }
-            priority.sort((a, b) => b.odds-a.odds)
+            priority.sort((a, b) => b.odds - a.odds)
+
+            // fill final nodes
             let i = 0
             if(priority.every(item => item.odds === 0))
             {
@@ -147,6 +150,7 @@ export const solveMethods = {
                 }
             }
             else
+            // fill best gaps
             while((!dull.every(item => done[item] || graph[item] == current_color + 1)) && i < priority.length)
             {
                 const node = priority[i]
