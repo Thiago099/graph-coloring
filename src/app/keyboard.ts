@@ -43,6 +43,8 @@ export const keyboardMethods = {
                         this.nodes = nodes
                         this.parse_saved_nodes()
                         this.update_colors()
+                        this.save()
+                        this.draw()
                     }
                     reader.readAsText(file)
                 }
