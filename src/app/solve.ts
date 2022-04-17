@@ -115,11 +115,8 @@ export const solveMethods = {
                 });
             }
             priority.sort((a, b) => b.odds - a.odds)
-
-            // is the algorithm done?
             let i = 0
             working = false
-            // fill best node
             while(true)
             {
                 let level_finished = false
