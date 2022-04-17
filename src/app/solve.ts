@@ -144,10 +144,7 @@ export const solveMethods = {
                 }
                 if(!group_done)
                 {
-                    for(const node in graph)
-                    {
-                        active(node)
-                    }
+                    active(node.id)
                     i++
 
                     function active(node)
