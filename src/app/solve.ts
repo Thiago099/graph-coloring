@@ -31,14 +31,18 @@ export const solveMethods = {
 
         console.clear();
 
+        const globally_visited : boolean[] = Array(graph.length).fill(false);
+
         for(const node in graph)
         {
+            if(!globally_visited[node])
             walk(node)
         }
 
         function walk(node, stack : number[] = [], visited : number[] = [].fill(0, 0, graph.length))
         {
             visited[node] = 1;
+            globally_visited[node] = true;
             for(const current of connections[node])
             {
                 if(visited[current] === 1)
