@@ -104,7 +104,7 @@ export const solveMethods = {
         const done = Array(graph.length).fill(false);
         while (true)
         {
-            // cauculate initial priority
+            // calculate initial priority
             let priority = []
             for (let i = 0; i < graph.length; i++)
             {
