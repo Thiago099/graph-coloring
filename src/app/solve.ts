@@ -35,50 +35,37 @@ export const solveMethods = {
         {
             let i = 0
             working = false
-            while(true)
-            {
-                let level_finished = false
-                while(done[i] || graph[i] == current_color + 1) 
-                {
-                    i++
-                    if(i >= graph.length-1)
-                    {
-                        level_finished = true
-                        break
-                    }
-                }
-                if(level_finished) break
-                for(const node of dull)
-                {
-                    active(node)
-                }
-                i++
+            if(dull.every(item => done[item] || graph[i] == current_color + 1)) break
 
-                function active(node)
+            for(const node of dull)
+            {
+                active(node)
+            }
+
+            function active(node)
+            {
+                if(graph[node] == current_color && !done[node])
                 {
-                    if(graph[node] == current_color && !done[node])
+                    working = true
+                    const passive_nodes = []
+                    done[node] = true
+                    for(const connection of connections[node])
                     {
-                        working = true
-                        const passive_nodes = []
-                        done[node] = true
+                        if(graph[connection] === current_color)
+                        {
+                            graph[connection]++
+                            passive_nodes.push(connection)
+                        }
+                    }
+                    for(const node of passive_nodes)
+                    {
                         for(const connection of connections[node])
                         {
-                            if(graph[connection] === current_color)
-                            {
-                                graph[connection]++
-                                passive_nodes.push(connection)
-                            }
-                        }
-                        for(const node of passive_nodes)
-                        {
-                            for(const connection of connections[node])
-                            {
-                                active(connection)
-                            }
+                            active(connection)
                         }
                     }
-                    
                 }
+                
             }
             current_color++;
         }

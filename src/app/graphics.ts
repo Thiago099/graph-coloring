@@ -34,7 +34,7 @@ export const graphicsMethods = {
         ctx.fillStyle = 'white';
         ctx.textAlign = "center";
         // ctx.fillText(this.node_odd_count[this.nodes.indexOf(point)].toFixed(), point.position.x, point.position.y+3);
-        ctx.fillText(this.nodes.indexOf(point).toFixed(), point.position.x, point.position.y+3);
+        // ctx.fillText(this.nodes.indexOf(point).toFixed(), point.position.x, point.position.y+3);
       }
       
     },
