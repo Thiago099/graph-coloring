@@ -98,7 +98,7 @@ export const solveMethods = {
             }
         }
         let priority = []
-        updatePriority()
+        
         function updatePriority()
         {
             priority = []
@@ -120,13 +120,16 @@ export const solveMethods = {
                         {
                             if(
                                 !ucn.includes(loop) &&
-                                !loops[loop].includes(secondary.id)
+                                !loops[loop].includes(primary.id) &&
+                                loops[loop].every(item=> graph[item] > current_color || connections[primary.id].includes(item))
                             )
                             {
                                 ucn.push(loop)
                             }
                         }
                     }
+                    if(primary.id == 7 || primary.id == 8)
+                    console.log(ucn.map(item => loops[item]))
                     return (
                         primary.odds - ucn.length
                         )
@@ -137,6 +140,7 @@ export const solveMethods = {
 
 
         let current_color = 0;
+        updatePriority()
         const done = Array(graph.length).fill(false);
         while (true)
         {
