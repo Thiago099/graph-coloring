@@ -1,10 +1,16 @@
+import { def } from "@vue/shared";
 
 export const solveMethods = {
 
     solve()
     {
+        const dull : number[] = [];
         const graph : number[] = [];
-        for (let i = 0; i < this.nodes.length; i++) graph.push(0);
+        for (let i = 0; i < this.nodes.length; i++) 
+        {
+            graph.push(0);
+            dull.push(i);
+        }
 
 
         //creates a array with all connections each node have
@@ -82,13 +88,13 @@ export const solveMethods = {
         }
 
         const node_odds = []
-        for(const node in graph) node_odds[node] = []
+        for(const node in graph) node_odds.push([])
 
         for(const loop in loops)
         {
             for(const node of loops[loop])
             {
-                node_odds[node].push(loop)
+                node_odds[node].push(Number(loop))
             }
         }
         let priority = []
@@ -100,94 +106,64 @@ export const solveMethods = {
             {
                 priority.push({
                     id : i, 
-                    odds : node_odds[i].length - connections[i].reduce((previous, current) => previous + node_odds[current].filter(item=> !loops[item].includes(i)).length, 0)
+                    odds : node_odds[i].length// - connections[i].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(i)).length, 0)
                 });
             }
             priority.sort((a,b) => { 
-                return b.odds - a.odds
-            });
+                const diff = (b.odds - connections[b.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(a.id)).length, 0))  - 
+                (a.odds - connections[a.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(b.id)).length, 0))
+                if(diff == 0)
+                console.log(a.id,b.id)
+                return  diff
+            })
         }
 
 
         let busy = true;
         let current_color = 0;
-
+        const done = Array(graph.length).fill(false);
         while (busy)
         {
             busy = false
-            for(const node of priority)
+            let i = 0
+            while((!dull.every(item => done[item] || graph[item] == current_color + 1)) && i < priority.length)
             {
-                active(node.id)
-                updatePriority()
-            }
-            function active(start)
-            {
-                if(graph[start] == current_color)
+                const node = priority[i]
+                if(graph[node.id] == current_color && !done[node.id])
                 {
-                    const passive_connections = [];
-                    // for(const odd_id in node_odds)
-                    // {
-                    //     if(odd_id != start)
-                    //     node_odds[odd_id] = node_odds[odd_id].filter(item => !node_odds[start].includes(item))
-                    // }
-                    // node_odds[start] = []
-                    for(const connection of connections[start])
+                    console.log(node.id)
+                    done[node.id] = true
+                    for(const odd_id in node_odds)
+                    {
+                        if(odd_id != node.id)
+                        node_odds[odd_id] = node_odds[odd_id].filter(item => !node_odds[node.id].includes(item))
+                    }
+                    
+                    node_odds[node.id] = []
+                    for(const connection of connections[node.id])
                     {
                         if(graph[connection] === current_color)
                         {
-                            connections[connection] = connections[connection].filter(connection => connection != start);
+                            connections[connection] = connections[connection].filter(connection => connection != node.id);
                             graph[connection]++
-                            passive_connections.push(connection)
                             busy = true
                         }
                     }
-                    const passive_priority  = [];
+                    // console.log(priority.reduce((previous, current) => previous + current.id + ', ',''))
+                    updatePriority()
 
-                    for(const passive of passive_connections)
-                    {
-                        passive_priority.push({
-                            id : passive, 
-                            odds :connections[passive].reduce((previous, current) => {
-                                const current_cost = node_odds[current].length - connections[current].reduce((previous, current_inner) => previous + node_odds[current_inner].filter(item=> !loops[item].includes(current)).length, 0)
-                                return current_cost > previous ? current_cost : previous
-                            }, 0)
-                        });
-                    }
-
-                    passive_priority.sort((a,b) => { 
-                        return b.odds - a.odds ;
-                    });
-                    for(const active of passive_priority)
-                    {
-                        passive(active.id);
-                    }
+                    i = 0
                 }
-
-            }
-            function passive(start)
-            {
-                const active_priority = [];
-                for(const passive of connections[start])
+                else
                 {
-                    active_priority.push({
-                        id : passive, 
-                        odds : node_odds[passive].length - connections[passive].reduce((previous, current) => previous + node_odds[current].filter(item=> !loops[item].includes(passive)).length, 0)
-                    });
-                }
-                active_priority.sort((a,b) => { 
-                    return b.odds - a.odds;
-                });
-                for(const passive of active_priority)
-                {
-                    active(passive.id);
+                    i++
                 }
             }
+            break
             current_color++;
         }
         
 
-        //graph
-        //node_odd_count
         return graph
 
     }
