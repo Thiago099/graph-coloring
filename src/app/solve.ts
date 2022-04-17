@@ -107,7 +107,7 @@ export const solveMethods = {
                 const odds =  node_odds[i].length 
                 priority.push({
                     id : i, 
-                    odds :odds,
+                    odds :odds == 0 ? -Infinity : odds,
                 });
             }
             priority.sort((a,b) => { 
@@ -118,20 +118,18 @@ export const solveMethods = {
                     {
                         for(const loop of node_odds[connection])
                         {
-                            if(!ucn.includes(loop))
+                            if(
+                                !ucn.includes(loop) &&
+                                !loops[loop].includes(secondary.id)
+                            )
                             {
                                 ucn.push(loop)
                             }
                         }
                     }
                     return (
-                        primary.odds - 
-                        connections[primary.id].reduce(
-                            (previous, current) => previous + node_odds[current].filter(
-                                item => (!loops[item].includes(secondary.id)) && loops[item].includes(primary.id)
-                            ).length, 0
+                        primary.odds - ucn.length
                         )
-                    )
                 }
                 return  testLiability(b, a) > testLiability(a, b) ? 1 : -1;
             })
@@ -143,7 +141,7 @@ export const solveMethods = {
         while (true)
         {
             let i = 0
-            if(priority.every(item => item.odds === 0))
+            if(priority.every(item => item.odds === -Infinity))
             {
                 for(const node in graph)
                 {
@@ -154,6 +152,7 @@ export const solveMethods = {
                 {
                     if(graph[node] == current_color && !done[node])
                     {
+                        console.log(node)
                         const passive_nodes = []
                         done[node] = true
                         for(const connection of connections[node])
@@ -182,6 +181,7 @@ export const solveMethods = {
                 if(graph[node.id] == current_color && !done[node.id])
                 {
                     console.log(node.id)
+                    console.log(priority)
                     done[node.id] = true
                     for(const odd_id in node_odds)
                     {
@@ -200,7 +200,6 @@ export const solveMethods = {
                     }
                     // console.log(priority.reduce((previous, current) => previous + current.id + ', ',''))
                     updatePriority()
-
                     i = 0
                 }
                 else
