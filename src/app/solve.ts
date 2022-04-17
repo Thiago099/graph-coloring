@@ -202,7 +202,7 @@ export const solveMethods = {
                             obj.odds = value.length - cost.length
                             return obj.odds
                         }
-                        return cauculate_priority(b,b.id,a.id) > cauculate_priority(a,a.id,b.id) ? 1 : -1
+                        return cauculate_priority(b, b.id, a.id) > cauculate_priority(a, a.id, b.id) ? 1 : -1
                     })
                     i = 0
                 }
