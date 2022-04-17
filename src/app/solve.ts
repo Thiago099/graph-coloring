@@ -140,17 +140,18 @@ export const solveMethods = {
 
 
         let current_color = 0;
-        for (let i = 0; i < graph.length; i++)
-        {
-            priority.push({
-                id : i, 
-                odds:node_odds[i].length
-            });
-        }
-        priority.sort((a, b) => b.odds-a.odds)
+        
         const done = Array(graph.length).fill(false);
         while (true)
         {
+            for (let i = 0; i < graph.length; i++)
+            {
+                priority.push({
+                    id : i, 
+                    odds:node_odds[i].length
+                });
+            }
+            priority.sort((a, b) => b.odds-a.odds)
             let i = 0
             if(priority.every(item => item.odds === 0))
             {
@@ -215,7 +216,6 @@ export const solveMethods = {
                 }
             }
             current_color++;
-            
         }
         
 
