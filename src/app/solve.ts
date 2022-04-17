@@ -104,17 +104,36 @@ export const solveMethods = {
             priority = []
             for (let i = 0; i < graph.length; i++)
             {
+                const odds =  node_odds[i].length 
                 priority.push({
                     id : i, 
-                    odds : node_odds[i].length > 0 ? node_odds[i].length : -Infinity,
+                    odds :odds,
                 });
             }
             priority.sort((a,b) => { 
                 function testLiability(primary,secondary)
                 {
-                    return (primary.odds - connections[primary.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(secondary.id)).length, 0));
+                    const ucn = []
+                    for(const connection of connections[primary.id])
+                    {
+                        for(const loop of node_odds[connection])
+                        {
+                            if(!ucn.includes(loop))
+                            {
+                                ucn.push(loop)
+                            }
+                        }
+                    }
+                    return (
+                        primary.odds - 
+                        connections[primary.id].reduce(
+                            (previous, current) => previous + node_odds[current].filter(
+                                item => (!loops[item].includes(secondary.id)) && loops[item].includes(primary.id)
+                            ).length, 0
+                        )
+                    )
                 }
-                return  testLiability(b,a) > testLiability(a,b) ? 1 : -1;
+                return  testLiability(b, a) > testLiability(a, b) ? 1 : -1;
             })
         }
 
