@@ -104,38 +104,31 @@ export const solveMethods = {
             priority = []
             for (let i = 0; i < graph.length; i++)
             {
-                const odds =  node_odds[i].length 
-                priority.push({
-                    id : i, 
-                    odds :odds == 0 ? -Infinity : odds,
-                });
-            }
-            priority.sort((a,b) => { 
-                function testLiability(primary,secondary)
+                const value =  node_odds[i].length 
+                const cost = []
+                if(value != 0)
                 {
-                    const ucn = []
-                    for(const connection of connections[primary.id])
+                    for(const connection of connections[i])
                     {
                         for(const loop of node_odds[connection])
                         {
                             if(
-                                !ucn.includes(loop) &&
-                                !loops[loop].includes(primary.id) &&
-                                loops[loop].every(item=> graph[item] > current_color || connections[primary.id].includes(item))
+                                !cost.includes(loop) &&
+                                !loops[loop].includes(i) &&
+                                loops[loop].every(item=> graph[item] > current_color || connections[i].includes(item))
                             )
                             {
-                                ucn.push(loop)
+                                cost.push(loop)
                             }
                         }
                     }
-                    if(primary.id == 7 || primary.id == 8)
-                    console.log(ucn.map(item => loops[item]))
-                    return (
-                        primary.odds - ucn.length
-                        )
                 }
-                return  testLiability(b, a) > testLiability(a, b) ? 1 : -1;
-            })
+                priority.push({
+                    id : i, 
+                    odds :value == 0 ? -Infinity : value - cost.length,
+                });
+            }
+            priority.sort((a,b) => b.odds > a.odds ? 1 : -1)
         }
 
 
@@ -212,7 +205,6 @@ export const solveMethods = {
                 }
             }
             current_color++;
-            break
         }
         
 
