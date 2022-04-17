@@ -202,34 +202,31 @@ export const solveMethods = {
                         priority = []
                         for (let i = 0; i < graph.length; i++)
                         {
+                            const cost = []
+                            for(const odd of node_odds)
+                            {
+                                for(const loop of odd)
+                                {
+                                    if(
+                                        !cost.includes(loop) &&
+                                        !loops[loop].includes(i) &&
+                                        loops[loop].every(item => graph[item] > current_color || connections[i].includes(item) || item == i) 
+                                    )
+                                    {
+                                        cost.push(loop)
+                                    }
+                                }
+                            }
                             priority.push({
                                 id : i, 
+                                cost: cost.length
                             });
                         }
                         priority.sort((a,b) => { 
                             function calculate_priority(obj,i:number,j:number)
                             {
-                                
                                 let value =  node_odds[i].filter(item=> !loops[item].includes(j) && loops[item].every(item => graph[item] > current_color || connections[i].includes(item) || item == i)) 
-                                const cost = []
-                                if(value.length != 0)
-                                {
-                                    for(const odd of node_odds)
-                                    {
-                                        for(const loop of odd)
-                                        {
-                                            if(
-                                                !cost.includes(loop) &&
-                                                !loops[loop].includes(i) &&
-                                                loops[loop].every(item => graph[item] > current_color || connections[i].includes(item) || item == i) 
-                                            )
-                                            {
-                                                cost.push(loop)
-                                            }
-                                        }
-                                    }
-                                }
-                                obj.odds = value.length - cost.length
+                                obj.odds = value.length - obj.cost
                                 return obj.odds
                             }
                             return calculate_priority(b, b.id, a.id) > calculate_priority(a, a.id, b.id) ? 1 : -1
