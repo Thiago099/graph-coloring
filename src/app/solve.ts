@@ -140,14 +140,7 @@ export const solveMethods = {
 
 
         let current_color = 0;
-        priority = []
-            for (let i = 0; i < graph.length; i++)
-            {
-                priority.push({
-                    id : i, 
-                    odds: node_odds[i]
-                });
-            }
+        updatePriority()
         const done = Array(graph.length).fill(false);
         while (true)
         {
