@@ -35,7 +35,6 @@ export const solveMethods = {
         {
             let i = 0
             working = false
-            if(dull.every(item => done[item] || graph[i] == current_color + 1)) break
 
             for(const node of dull)
             {
