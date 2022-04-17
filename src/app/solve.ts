@@ -104,7 +104,6 @@ export const solveMethods = {
             priority = []
             for (let i = 0; i < graph.length; i++)
             {
-                
                 priority.push({
                     id : i, 
                 });
@@ -150,40 +149,6 @@ export const solveMethods = {
         while (true)
         {
             let i = 0
-            if(priority.every(item => item.odds === 0))
-            {
-                for(const node in graph)
-                {
-                    active(node)
-                }
-                break
-                function active(node)
-                {
-                    if(graph[node] == current_color && !done[node])
-                    {
-                        console.log(node)
-                        const passive_nodes = []
-                        done[node] = true
-                        for(const connection of connections[node])
-                        {
-                            if(graph[connection] === current_color)
-                            {
-                                graph[connection]++
-                                passive_nodes.push(connection)
-                            }
-                        }
-                        for(const node of passive_nodes)
-                        {
-                            for(const connection of connections[node])
-                            {
-                                active(connection)
-                            }
-                        }
-                    }
-                    
-                }
-            }
-            else
             while((!dull.every(item => done[item] || graph[item] == current_color + 1)) && i < priority.length)
             {
                 const node = priority[i]
@@ -217,6 +182,39 @@ export const solveMethods = {
                 }
             }
             current_color++;
+            if(priority.every(item => item.odds === 0))
+            {
+                for(const node in graph)
+                {
+                    active(node)
+                }
+                break
+                function active(node)
+                {
+                    if(graph[node] == current_color && !done[node])
+                    {
+                        console.log(node)
+                        const passive_nodes = []
+                        done[node] = true
+                        for(const connection of connections[node])
+                        {
+                            if(graph[connection] === current_color)
+                            {
+                                graph[connection]++
+                                passive_nodes.push(connection)
+                            }
+                        }
+                        for(const node of passive_nodes)
+                        {
+                            for(const connection of connections[node])
+                            {
+                                active(connection)
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
         
 

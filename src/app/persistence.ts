@@ -5,7 +5,6 @@ export const persistenceMethods = {
     {
         localStorage.setItem('nodes', JSON.stringify(this.nodes.map(node => node.position)))
         localStorage.setItem('connections', JSON.stringify(this.connections))
-        this.update_colors()
     },
     
     load()

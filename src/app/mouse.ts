@@ -46,6 +46,7 @@ export const mouseMethods = {
                 })
               }
               this.save()
+              this.update_colors()
               this.draw()
             }
             
@@ -67,6 +68,7 @@ export const mouseMethods = {
         point.position.y = this.mouse.y
         this.nodes.push(point)
         this.save()
+        this.update_colors()
         this.draw()
         this.drag_point = point
       }else if(e.button == 1)
@@ -139,6 +141,7 @@ export const mouseMethods = {
               from: from,
               to: to,
             })
+            this.update_colors()
           }
         }
         else
@@ -152,6 +155,7 @@ export const mouseMethods = {
             from: this.nodes.indexOf(this.connect_point),
             to: this.nodes.indexOf(node),
           })
+          this.update_colors()
         }
       }
       // clear state
