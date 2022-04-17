@@ -131,10 +131,6 @@ export const solveMethods = {
                             }
                         }
                     }
-                    if(i==7&&j==8 || i==8&&j==7){
-                        console.log(i,value.map(item=>loops[item]))
-                        console.log(i,cost.map(item=>loops[item]))
-                    }
                     obj.odds = value.length - cost.length
                     return obj.odds
                 }
@@ -154,8 +150,6 @@ export const solveMethods = {
                 const node = priority[i]
                 if(graph[node.id] == current_color && !done[node.id])
                 {
-                    console.log(node.id)
-                    console.log(priority)
                     done[node.id] = true
                     for(const odd_id in node_odds)
                     {
@@ -172,7 +166,6 @@ export const solveMethods = {
                             graph[connection]++
                         }
                     }
-                    // console.log(priority.reduce((previous, current) => previous + current.id + ', ',''))
                     updatePriority()
                     i = 0
                 }
@@ -193,7 +186,6 @@ export const solveMethods = {
                 {
                     if(graph[node] == current_color && !done[node])
                     {
-                        console.log(node)
                         const passive_nodes = []
                         done[node] = true
                         for(const connection of connections[node])

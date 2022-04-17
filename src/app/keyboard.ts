@@ -34,7 +34,6 @@ export const keyboardMethods = {
                 load_file.onchange = (e) =>
                 {
                     const file = (e.target as HTMLInputElement) .files[0]
-                    console.log(file)
                     const reader = new FileReader()
                     reader.onload = (e) =>
                     {
