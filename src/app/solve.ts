@@ -97,13 +97,14 @@ export const solveMethods = {
                 node_odds[node].push(Number(loop))
             }
         }
-        let priority = []
+        
 
         let current_color = 0;
         
         const done = Array(graph.length).fill(false);
         while (true)
         {
+            let priority = []
             for (let i = 0; i < graph.length; i++)
             {
                 priority.push({
