@@ -150,7 +150,7 @@ export const solveMethods = {
                 }
             }
             else
-            // fill best gaps
+            // fill best node
             while((!dull.every(item => done[item] || graph[item] == current_color + 1)) && i < priority.length)
             {
                 const node = priority[i]
