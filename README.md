@@ -1,4 +1,4 @@
-# graph
+# graph coloring
 
 color the graph with the least ammount of colors posible so two of the same color dont connect
 
