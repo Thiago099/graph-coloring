@@ -106,13 +106,15 @@ export const solveMethods = {
             {
                 priority.push({
                     id : i, 
-                    odds : node_odds[i].length - connections[i].reduce((previous, current) => previous + node_odds[current].length, 0)
+                    odds : node_odds[i].length > 0 ? node_odds[i].length : -Infinity,
                 });
             }
             priority.sort((a,b) => { 
-                // const diff = (b.odds - connections[b.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(a.id)).length, 0))  - 
-                // (a.odds - connections[a.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(b.id)).length, 0))
-                return  b.odds - a.odds
+                function testLiability(primary,secondary)
+                {
+                    return (primary.odds - connections[primary.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(secondary.id)).length, 0));
+                }
+                return  testLiability(b,a) > testLiability(a,b) ? 1 : -1;
             })
         }
 
@@ -160,6 +162,7 @@ export const solveMethods = {
                 const node = priority[i]
                 if(graph[node.id] == current_color && !done[node.id])
                 {
+                    console.log(node.id)
                     done[node.id] = true
                     for(const odd_id in node_odds)
                     {
