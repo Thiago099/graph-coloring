@@ -106,32 +106,60 @@ export const solveMethods = {
             {
                 priority.push({
                     id : i, 
-                    odds : node_odds[i].length// - connections[i].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(i)).length, 0)
+                    odds : node_odds[i].length - connections[i].reduce((previous, current) => previous + node_odds[current].length, 0)
                 });
             }
             priority.sort((a,b) => { 
-                const diff = (b.odds - connections[b.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(a.id)).length, 0))  - 
-                (a.odds - connections[a.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(b.id)).length, 0))
-                if(diff == 0)
-                console.log(a.id,b.id)
-                return  diff
+                // const diff = (b.odds - connections[b.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(a.id)).length, 0))  - 
+                // (a.odds - connections[a.id].reduce((previous, current) => previous + node_odds[current].filter(item => !loops[item].includes(b.id)).length, 0))
+                return  b.odds - a.odds
             })
         }
 
 
-        let busy = true;
         let current_color = 0;
         const done = Array(graph.length).fill(false);
-        while (busy)
+        while (true)
         {
-            busy = false
             let i = 0
+            if(priority.every(item => item.odds === 0))
+            {
+                for(const node in graph)
+                {
+                    active(node)
+                }
+                break
+                function active(node)
+                {
+                    if(graph[node] == current_color && !done[node])
+                    {
+                        const passive_nodes = []
+                        done[node] = true
+                        for(const connection of connections[node])
+                        {
+                            if(graph[connection] === current_color)
+                            {
+                                graph[connection]++
+                                passive_nodes.push(connection)
+                            }
+                        }
+                        for(const node of passive_nodes)
+                        {
+                            for(const connection of connections[node])
+                            {
+                                active(connection)
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            else
             while((!dull.every(item => done[item] || graph[item] == current_color + 1)) && i < priority.length)
             {
                 const node = priority[i]
                 if(graph[node.id] == current_color && !done[node.id])
                 {
-                    console.log(node.id)
                     done[node.id] = true
                     for(const odd_id in node_odds)
                     {
@@ -146,7 +174,6 @@ export const solveMethods = {
                         {
                             connections[connection] = connections[connection].filter(connection => connection != node.id);
                             graph[connection]++
-                            busy = true
                         }
                     }
                     // console.log(priority.reduce((previous, current) => previous + current.id + ', ',''))
@@ -159,8 +186,8 @@ export const solveMethods = {
                     i++
                 }
             }
-            break
             current_color++;
+            break
         }
         
 
