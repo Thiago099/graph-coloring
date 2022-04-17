@@ -120,8 +120,19 @@ export const solveMethods = {
             let i = 0
             working = false
             // fill best node
-            while((!dull.every(item => done[item] || graph[item] == current_color + 1)) && i < priority.length)
+            while(true)
             {
+                let level_finished = false
+                while(done[priority[i].id] || graph[priority[i].id] == current_color + 1) 
+                {
+                    i++
+                    if(i >= priority.length-1)
+                    {
+                        level_finished = true
+                        break
+                    }
+                }
+                if(level_finished) break
                 const visited = new Array(graph.length).fill(false);
                 let group_done = false
                 const node = priority[i]
@@ -144,7 +155,13 @@ export const solveMethods = {
                 }
                 if(!group_done)
                 {
-                    active(node.id)
+                    for(const node of dull)
+                    {
+                        if(visited[node])
+                        [
+                            active(node)
+                        ]
+                    }
                     i++
 
                     function active(node)
@@ -175,65 +192,58 @@ export const solveMethods = {
                 }
                 else
                 {
-                    if(graph[node.id] == current_color && !done[node.id])
+                    working = true
+                    done[node.id] = true
+                    for(const odd_id in node_odds)
                     {
-                        working = true
-                        done[node.id] = true
-                        for(const odd_id in node_odds)
+                        if(odd_id != node.id)
+                        node_odds[odd_id] = node_odds[odd_id].filter(item => !node_odds[node.id].includes(item))
+                    }
+                    
+                    node_odds[node.id] = []
+                    for(const connection of connections[node.id])
+                    {
+                        if(graph[connection] === current_color)
                         {
-                            if(odd_id != node.id)
-                            node_odds[odd_id] = node_odds[odd_id].filter(item => !node_odds[node.id].includes(item))
+                            
+                            connections[connection] = connections[connection].filter(connection => connection != node.id);
+                            graph[connection]++
                         }
-                        
-                        node_odds[node.id] = []
-                        for(const connection of connections[node.id])
+                    }
+                    // update priority
+                    priority = []
+                    for (let i = 0; i < graph.length; i++)
+                    {
+                        const cost = []
+                        for(const odd of node_odds)
                         {
-                            if(graph[connection] === current_color)
+                            for(const loop of odd)
                             {
-                                
-                                connections[connection] = connections[connection].filter(connection => connection != node.id);
-                                graph[connection]++
-                            }
-                        }
-                        // update priority
-                        priority = []
-                        for (let i = 0; i < graph.length; i++)
-                        {
-                            const cost = []
-                            for(const odd of node_odds)
-                            {
-                                for(const loop of odd)
+                                if(
+                                    !cost.includes(loop) &&
+                                    !loops[loop].includes(i) &&
+                                    loops[loop].every(item => graph[item] > current_color || connections[i].includes(item) || item == i) 
+                                )
                                 {
-                                    if(
-                                        !cost.includes(loop) &&
-                                        !loops[loop].includes(i) &&
-                                        loops[loop].every(item => graph[item] > current_color || connections[i].includes(item) || item == i) 
-                                    )
-                                    {
-                                        cost.push(loop)
-                                    }
+                                    cost.push(loop)
                                 }
                             }
-                            priority.push({
-                                id : i, 
-                                cost: cost.length
-                            });
                         }
-                        priority.sort((a,b) => { 
-                            function calculate_priority(obj,i:number,j:number)
-                            {
-                                let value =  node_odds[i].filter(item=> !loops[item].includes(j) && loops[item].every(item => graph[item] > current_color || connections[i].includes(item) || item == i)) 
-                                obj.odds = value.length - obj.cost
-                                return obj.odds
-                            }
-                            return calculate_priority(b, b.id, a.id) > calculate_priority(a, a.id, b.id) ? 1 : -1
-                        })
-                        i = 0
+                        priority.push({
+                            id : i, 
+                            cost: cost.length
+                        });
                     }
-                    else
-                    {
-                        i++
-                    }
+                    priority.sort((a,b) => { 
+                        function calculate_priority(obj,i:number,j:number)
+                        {
+                            let value =  node_odds[i].filter(item=> !loops[item].includes(j) && loops[item].every(item => graph[item] > current_color || connections[i].includes(item) || item == i)) 
+                            obj.odds = value.length - obj.cost
+                            return obj.odds
+                        }
+                        return calculate_priority(b, b.id, a.id) > calculate_priority(a, a.id, b.id) ? 1 : -1
+                    })
+                    i = 0
                 }
             }
             current_color++;
