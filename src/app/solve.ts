@@ -98,46 +98,6 @@ export const solveMethods = {
             }
         }
         let priority = []
-        
-        function updatePriority()
-        {
-            priority = []
-            for (let i = 0; i < graph.length; i++)
-            {
-                priority.push({
-                    id : i, 
-                });
-            }
-            priority.sort((a,b) => { 
-                function cauculate_priority(obj,i:number,j:number)
-                {
-                    
-                    let value =  node_odds[i].filter(item=> !loops[item].includes(j) && loops[item].every(item => graph[item] > current_color || connections[i].includes(item) || item == i)) 
-                    const cost = []
-                    if(value.length != 0)
-                    {
-                        for(const odd of node_odds)
-                        {
-                            for(const loop of odd)
-                            {
-                                if(
-                                    !cost.includes(loop) &&
-                                    !loops[loop].includes(i) &&
-                                    loops[loop].every(item => graph[item] > current_color || connections[i].includes(item) || item == i) 
-                                )
-                                {
-                                    cost.push(loop)
-                                }
-                            }
-                        }
-                    }
-                    obj.odds = value.length - cost.length
-                    return obj.odds
-                }
-                return cauculate_priority(b,b.id,a.id) > cauculate_priority(a,a.id,b.id) ? 1 : -1
-            })
-        }
-
 
         let current_color = 0;
         
@@ -207,7 +167,42 @@ export const solveMethods = {
                             graph[connection]++
                         }
                     }
-                    updatePriority()
+                    // update priority
+                    priority = []
+                    for (let i = 0; i < graph.length; i++)
+                    {
+                        priority.push({
+                            id : i, 
+                        });
+                    }
+                    priority.sort((a,b) => { 
+                        function cauculate_priority(obj,i:number,j:number)
+                        {
+                            
+                            let value =  node_odds[i].filter(item=> !loops[item].includes(j) && loops[item].every(item => graph[item] > current_color || connections[i].includes(item) || item == i)) 
+                            const cost = []
+                            if(value.length != 0)
+                            {
+                                for(const odd of node_odds)
+                                {
+                                    for(const loop of odd)
+                                    {
+                                        if(
+                                            !cost.includes(loop) &&
+                                            !loops[loop].includes(i) &&
+                                            loops[loop].every(item => graph[item] > current_color || connections[i].includes(item) || item == i) 
+                                        )
+                                        {
+                                            cost.push(loop)
+                                        }
+                                    }
+                                }
+                            }
+                            obj.odds = value.length - cost.length
+                            return obj.odds
+                        }
+                        return cauculate_priority(b,b.id,a.id) > cauculate_priority(a,a.id,b.id) ? 1 : -1
+                    })
                     i = 0
                 }
                 else
