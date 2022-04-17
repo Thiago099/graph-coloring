@@ -145,36 +145,6 @@ export const solveMethods = {
         while (true)
         {
             let i = 0
-            while((!dull.every(item => done[item] || graph[item] == current_color + 1)) && i < priority.length)
-            {
-                const node = priority[i]
-                if(graph[node.id] == current_color && !done[node.id])
-                {
-                    done[node.id] = true
-                    for(const odd_id in node_odds)
-                    {
-                        if(odd_id != node.id)
-                        node_odds[odd_id] = node_odds[odd_id].filter(item => !node_odds[node.id].includes(item))
-                    }
-                    
-                    node_odds[node.id] = []
-                    for(const connection of connections[node.id])
-                    {
-                        if(graph[connection] === current_color)
-                        {
-                            connections[connection] = connections[connection].filter(connection => connection != node.id);
-                            graph[connection]++
-                        }
-                    }
-                    updatePriority()
-                    i = 0
-                }
-                else
-                {
-                    i++
-                }
-            }
-            current_color++;
             if(priority.every(item => item.odds === 0))
             {
                 for(const node in graph)
@@ -207,6 +177,38 @@ export const solveMethods = {
                     
                 }
             }
+            else
+            while((!dull.every(item => done[item] || graph[item] == current_color + 1)) && i < priority.length)
+            {
+                const node = priority[i]
+                if(graph[node.id] == current_color && !done[node.id])
+                {
+                    done[node.id] = true
+                    for(const odd_id in node_odds)
+                    {
+                        if(odd_id != node.id)
+                        node_odds[odd_id] = node_odds[odd_id].filter(item => !node_odds[node.id].includes(item))
+                    }
+                    
+                    node_odds[node.id] = []
+                    for(const connection of connections[node.id])
+                    {
+                        if(graph[connection] === current_color)
+                        {
+                            connections[connection] = connections[connection].filter(connection => connection != node.id);
+                            graph[connection]++
+                        }
+                    }
+                    updatePriority()
+                    i = 0
+                }
+                else
+                {
+                    i++
+                }
+            }
+            current_color++;
+            
         }
         
 
