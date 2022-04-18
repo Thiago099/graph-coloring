@@ -2,7 +2,7 @@ export const solveMethods = {
 
     solve()
     {
-        const dull : number[] = [];
+        let dull : number[] = [];
         const graph : number[] = [];
         for (let i = 0; i < this.nodes.length; i++) 
         {
@@ -21,15 +21,14 @@ export const solveMethods = {
             connections[this.connections[i].to].push(this.connections[i].from);
             connections[this.connections[i].from].push(this.connections[i].to);
         }
-
+        console.log(connections);
         let current_color = 0;
         let working = true;
-        
         const done = Array(graph.length).fill(false);
         while (working)
         {
             working = false
-
+            dull.sort((a, b) => connections[b].length - connections[a].length);
             for(const node of dull)
             {
                 active(node)
