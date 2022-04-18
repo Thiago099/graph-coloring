@@ -66,7 +66,9 @@ export const solveMethods = {
                     }
                     console.log(vouter);
                     const vote_nodes = dull.filter(item=>vote[item] != 0)
-                    vote_nodes.sort((a,b)=>vote[b] != vote[a] ? vote[b] - vote[a] : vouter_node[b].reduce((previous, current)=>previous+vouter[current],0)- vouter_node[a].reduce((previous, current)=>previous+vouter[current],0))
+                    vote_nodes.sort((a,b) => vote[b] != vote[a] ? vote[b] - vote[a] : 
+                        vouter_node[b].reduce((previous, current) => previous + vouter[current],0) - 
+                        vouter_node[a].reduce((previous, current) => previous + vouter[current],0))
                     for(const node of vote_nodes)
                     {
                         active(node)
