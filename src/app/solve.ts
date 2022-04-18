@@ -49,15 +49,24 @@ export const solveMethods = {
                         }
                     }
                     const vote = Array(graph.length).fill(0);
-                    for(const node of passive_nodes)
+                    const vouter = Array(graph.length).fill(0);
+                    const vouter_node = []
+                    for(const node in dull) vouter_node.push([]); 
+                    for(const cur of passive_nodes)
                     {
-                        for(const connection of connections[node])
+                        for(const connection of connections[cur])
                         {
-                            vote[connection]++
+                            if(connection != node)
+                            {
+                                vote[connection]++
+                                vouter[cur]++
+                                vouter_node[connection].push(cur)
+                            }
                         }
                     }
+                    console.log(vouter);
                     const vote_nodes = dull.filter(item=>vote[item] != 0)
-                    vote_nodes.sort((a,b)=>vote[b]-vote[a])
+                    vote_nodes.sort((a,b)=>vote[b] != vote[a] ? vote[b] - vote[a] : vouter_node[b].reduce((previous, current)=>previous+vouter[current],0)- vouter_node[a].reduce((previous, current)=>previous+vouter[current],0))
                     for(const node of vote_nodes)
                     {
                         active(node)
