@@ -7,7 +7,9 @@ color the graph with the least ammount of colors posible so two of the same colo
 
 # algoritimo heuristico disponivel nas branchs funciona na maioria dos casos e roda em tempo linear
 grafo que o algoritimo heuristico não colore corretamente
+
 ![](https://i.imgur.com/pJT23cD.png)
+![](https://i.imgur.com/4YJz8TQ.png)
 
 
 ## if you cloned this project in the past
