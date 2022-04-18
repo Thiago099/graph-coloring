@@ -28,7 +28,6 @@ export const solveMethods = {
         const done = Array(graph.length).fill(false);
         while (working)
         {
-            let i = 0
             working = false
 
             for(const node of dull)
