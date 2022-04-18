@@ -10,7 +10,6 @@ export const solveMethods = {
             dull.push(i);
         }
 
-
         //creates a array with all connections each node have
         const connections: number[][] = [];
 
@@ -22,8 +21,6 @@ export const solveMethods = {
             connections[this.connections[i].to].push(this.connections[i].from);
             connections[this.connections[i].from].push(this.connections[i].to);
         }
-
-        console.clear();
 
         let current_color = 0;
         let working = true;
