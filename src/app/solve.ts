@@ -21,7 +21,6 @@ export const solveMethods = {
             connections[this.connections[i].to].push(this.connections[i].from);
             connections[this.connections[i].from].push(this.connections[i].to);
         }
-        console.log(connections);
         let current_color = 0;
         let working = true;
         const done = Array(graph.length).fill(false);
@@ -37,6 +36,7 @@ export const solveMethods = {
             {
                 if(graph[node] == current_color && !done[node])
                 {
+                    console.log(node);
                     working = true
                     const passive_nodes = []
                     done[node] = true
@@ -48,12 +48,18 @@ export const solveMethods = {
                             passive_nodes.push(connection)
                         }
                     }
+                    const vote = Array(graph.length).fill(0);
                     for(const node of passive_nodes)
                     {
                         for(const connection of connections[node])
                         {
-                            active(connection)
+                            vote[connection]++
                         }
+                    }
+                    const vote_nodes = dull.filter(item=>vote[item] != 0)
+                    for(const node of vote_nodes)
+                    {
+                        active(node)
                     }
                 }
                 
