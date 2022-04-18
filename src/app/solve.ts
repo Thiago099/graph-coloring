@@ -223,7 +223,7 @@ export const solveMethods = {
                                 if(
                                     !cost.includes(loop) &&
                                     !loops[loop].includes(i) &&
-                                    loops[loop].every(item => graph[item] > current_color || connections[i].includes(item)) 
+                                    loops[loop].every(item => graph[item] > current_color || connections[i].includes(item) || item == i) 
                                 )
                                 {
                                     cost.push(loop)
