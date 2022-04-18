@@ -1,5 +1,7 @@
 # graph coloring
 
+# algoritimo heuristico disponivel nas branchs funciona na maioria dos casos e roda em tempo linear
+
 color the graph with the least ammount of colors posible so two of the same color dont connect
 
 ![](https://i.imgur.com/OkpcM09.png)
