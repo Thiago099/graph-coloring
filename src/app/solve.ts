@@ -52,7 +52,7 @@ export const solveMethods = {
                     {
                         for(const connection of connections[node])
                         {
-                            active(node)
+                            active(connection)
                         }
                     }
                 }
