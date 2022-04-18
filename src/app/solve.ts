@@ -25,7 +25,6 @@ export const solveMethods = {
         let current_color = 0;
         let working = true;
         const done = Array(graph.length).fill(false);
-        dull.sort((a, b) => connections[b].length - connections[a].length);
         while (working)
         {
             working = false
