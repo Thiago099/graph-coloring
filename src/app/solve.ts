@@ -19,77 +19,59 @@ export const solveMethods = {
         for (let i = 0; i < graph.length; i++)
             connections.push([]);
 
+        const connections_ids: number[][] = [];
+        for (let i = 0; i < connections.length; i++)
+            connections_ids.push([]);
+
         for (let i = 0; i < this.connections.length; i++)
         {
             connections[this.connections[i].to].push(this.connections[i].from);
             connections[this.connections[i].from].push(this.connections[i].to);
+            connections_ids[this.connections[i].to].push(i);
+            connections_ids[this.connections[i].from].push(i);
         }
 
         //find all loops in the graph
         const loops: number[][] = [];
 
-
         console.clear();
 
-        const globally_visited : boolean[] = Array(graph.length).fill(false);
+        // const visited = Array(graph.length).fill(false);
+        // visited[node] = true
 
-        for(const node in graph)
-        {
-            if(!globally_visited[node])
-            walk(node)
-        }
+        const jinxed_connections = Array(connections.length).fill(false);  
+        const jinxed_nodes = Array(graph.length).fill(false);
 
-        function walk(node, stack : number[] = [], visited : number[] = [].fill(0, 0, graph.length))
+        let spanning_tree = [] 
+        walk()
+        console.log(spanning_tree);
+        
+        
+
+        function walk(node = 0,carry = -1, stack = [])
         {
-            visited[node] = 1;
-            globally_visited[node] = true;
-            for(const current of connections[node])
+            stack.push(node);
+            for(const index in connections[node])
             {
-                if(visited[current] === 1)
+                const connection = connections[node][index];
+                if(connection != carry)
                 {
-                    let current_stack = [...stack, node]
-                    let loop_point = 0
-
-                    for(; loop_point < current_stack.length; loop_point++)
-                        if(current_stack[loop_point] == current)
-                            break
-
-                    if(loop_point !== current_stack.length)
+                    if(!jinxed_connections[connections_ids[node][index]])
                     {
-                        current_stack = current_stack.splice(loop_point)
+                        jinxed_connections[connections_ids[node][index]] = true;
+                        walk(connection, node, stack);
                     }
-
-                    current_stack = current_stack.map(item => Number(item));
-
-                    if(current_stack.length <= 2) continue
-                    if(!connections[current_stack[0]].includes(node)) continue
-                    if(current_stack.length % 2 === 0) continue
-
-                    let found = true
-                    for(const loop of loops)
+                    else
                     {
-                        found = false
-                        if(loop.length !== current_stack.length) continue
-                        for(const number of current_stack)
-                        {
-                            if(!loop.includes(number))
-                            {
-                                found = true
-                                break
-                            }
-                        }
-                        if(!found) return
+                        // console.log('conn',connections[node]);
+                        console.log('stack',stack, 'connection', connection);  
                     }
-                    
-                    loops.push(current_stack);
-                    return
-                }
-                else
-                {
-                    walk(current, [...stack, Number(node)],[...visited]);
                 }
             }
         }
+
+        
+        return graph;
 
         const node_odds = []
         for(const node in graph) node_odds.push([])

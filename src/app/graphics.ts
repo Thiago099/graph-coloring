@@ -16,16 +16,16 @@ export const graphicsMethods = {
     draw()
     {
       const ctx : CanvasRenderingContext2D = this.screen.getContext('2d')
-      ctx.clearRect(0,0,this.screen.width,this.screen.height)
+      ctx.clearRect(0, 0, this.screen.width, this.screen.height)
       
       if(this.connect_point)
       {
-        this.draw_line(ctx,this.connect_point.position,this.mouse)
+        this.draw_line(ctx, this.connect_point.position, this.mouse)
       }
 
       for(const connection of this.connections)
       {
-        this.draw_line(ctx,this.nodes[connection.from].position,this.nodes[connection.to].position)
+        this.draw_line(ctx, this.nodes[connection.from].position, this.nodes[connection.to].position)
       }
 
       for(const point of this.nodes)
@@ -34,7 +34,7 @@ export const graphicsMethods = {
         ctx.fillStyle = 'white';
         ctx.textAlign = "center";
         // ctx.fillText(this.node_odd_count[this.nodes.indexOf(point)].toFixed(), point.position.x, point.position.y+3);
-        // ctx.fillText(this.nodes.indexOf(point).toFixed(), point.position.x, point.position.y+3);
+        ctx.fillText(this.nodes.indexOf(point).toFixed(), point.position.x, point.position.y+3);
       }
       
     },
