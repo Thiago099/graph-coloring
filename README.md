@@ -1,5 +1,6 @@
 # graph coloring
 
+this is a old project i have
 
 color the graph with the least ammount of colors posible so two of the same color dont connect
 
