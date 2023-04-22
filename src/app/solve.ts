@@ -28,7 +28,7 @@ export const solveMethods = {
         //find all loops in the graph
         const loops: number[][] = [];
 
-        const loopSet = new Set();
+        var loopSet = new Set();
 
 
         console.clear();
@@ -68,8 +68,8 @@ export const solveMethods = {
                     if(current_stack.length % 2 === 0) continue
 
                     var key = current_stack.sort().join(",");
-                    if(loopSet.has(key)) continue
-                    
+                    if(loopSet.has(key)) return
+                    loopSet.add(key);
                     loops.push(current_stack);
                     return
                 }
@@ -212,7 +212,7 @@ export const solveMethods = {
                                 if(
                                     !cost.includes(loop) &&
                                     !loops[loop].includes(i) &&
-                                    loops[loop].every(item => graph[item] > current_color || connections[i].includes(item)) 
+                                    loops[loop].every(item => graph[item] > current_color || connections[i].includes(item) || item == i) 
                                 )
                                 {
                                     cost.push(loop)
