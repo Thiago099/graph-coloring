@@ -12,7 +12,7 @@ for each node find some of the odd cycles
 Sort the nodes and connections by the odd cycles found so the algorithm eliminates the maximum amount of odd cycle nodes
 Loop:
   Chose the first node and set it to the current color (the highest odd cycle node), ignore all the nodes around it and from them chose the next highest priority node
-  Eliminate the done nodes and its odd cycles as they are now broken
+  Eliminate the done nodes as its odd cycles as they are now broken
   Sort the remaining nodes by their odd cycles
   Increment the current color
   
