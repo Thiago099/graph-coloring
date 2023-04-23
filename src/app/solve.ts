@@ -22,7 +22,6 @@ export const solveMethods = {
             connections[this.connections[i].from].push(this.connections[i].to);
         }
 
-
         console.clear();
         const oddLoops = [];
         const oddLoopDict = new Set();
@@ -39,7 +38,7 @@ export const solveMethods = {
             {
                 if(!visited.has(neighbour))
                 {
-                    dfs(neighbour,start,[...path],new Set(visited))
+                    dfs(neighbour,start,[...path],visited)
                 }
                 else if(neighbour == start && path.length > 2)
                 {
