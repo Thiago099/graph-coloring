@@ -8,7 +8,7 @@ color the graph with the least ammount of colors posible so two of the same colo
 
 explanation of the algorithim
 ```
-Finds all odd cycles
+Find some of the odd cycles
 Sort the nodes and connections by the odd cycles so the algorithm eliminates the maximum amount of odd cycle nodes
 Loop:
   Chose the first node and set it to the current color (the highest odd cycle node), ignore all the nodes around it and from they chose the next highest priority node
