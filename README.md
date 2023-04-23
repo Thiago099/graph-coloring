@@ -8,7 +8,7 @@ this is a interactive graph editor that colors the graph with the least ammount 
 
 explanation of the algorithim
 ```
-for each node find some of the odd cycles
+for each node find some of its odd node count cycles
 Sort the nodes and connections by the odd cycles found so the algorithm eliminates the maximum amount of odd cycle nodes
 Loop:
   Chose the first node and set it to the current color (the highest odd cycle node), ignore all the nodes around it and from them chose the next highest priority node
