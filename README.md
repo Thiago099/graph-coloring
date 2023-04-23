@@ -1,4 +1,4 @@
-# graph coloring
+# Graph coloring
 
 This is an interactive graph editor that colors the graph with the least amount of colors possible so there is no node with the same color connected
 
