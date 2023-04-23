@@ -6,13 +6,13 @@ color the graph with the least ammount of colors posible so two of the same colo
 
 explanation of the algorithim
 ```
-finds all odd cycles
-sort the nodes and connections by the odd cycles so the alogirithim eliminate the maximun ammound of odd cycle nodes
-loop:
-  chose the first node and set it to the current color (the highest odd cycle node), ignore all the nodes around it and from them chose the next high priority node
-  eliminate the done nodes and its odd cycles as they are now broken
-  sort the remaining nodes by their odd cycles
-  increment the current color
+Finds all odd cycles
+Sort the nodes and connections by the odd cycles so the algorithm eliminates the maximum amount of odd cycle nodes
+Loop:
+  Chose the first node and set it to the current color (the highest odd cycle node), ignore all the nodes around it and from they chose the next highest priority node
+  Eliminate the done nodes and its odd cycles as they are now broken
+  Sort the remaining nodes by their odd cycles
+  Increment the current color
   
 ```
 
