@@ -57,15 +57,22 @@ export const solveMethods = {
             }
         }
 
-        const graphOddLoopCount = Array(graph.length).fill(0);
-
-        for(const loop of oddLoops)
+        function getGraphOddLoopCount()
         {
-            for(const node of loop)
+            const graphOddLoopCount = Array(graph.length).fill(0);
+
+            for(const loop of oddLoops)
             {
-                graphOddLoopCount[node]++;
+                for(const node of loop)
+                {
+                    graphOddLoopCount[node]++;
+                }
             }
+            return graphOddLoopCount;
         }
+
+        var graphOddLoopCount = getGraphOddLoopCount();
+        
 
         const nodeOddLoops = Array(graph.length).fill(0).map(x => []);
         for(var i = 0; i < oddLoops.length; i++)
@@ -77,17 +84,49 @@ export const solveMethods = {
         }
 
 
-        dull.sort((a,b) => graphOddLoopCount[b] - graphOddLoopCount[a])
-        for(const connection of connections)
+        function sortConnections()
         {
-            connection.sort((a,b) => graphOddLoopCount[b] - graphOddLoopCount[a])
+            dull.sort((a,b) => graphOddLoopCount[b] - graphOddLoopCount[a])
+            for(const connection of connections)
+            {
+                connection.sort((a,b) => graphOddLoopCount[b] - graphOddLoopCount[a])
+            }
         }
 
-
+        sortConnections()
 
         let current_color = 0;
         let working = true;
         const done = Array(graph.length).fill(false);
+
+        function removeDone()
+        {
+            for(var i = 0; i < dull.length; i++)
+            {
+                if(done[dull[i]])
+                {
+                    for(var loop of nodeOddLoops[dull[i]])
+                    {
+                        oddLoops[loop] = []
+                    }
+                    dull.splice(i,1)
+                    i--;
+                }
+            }
+            for(const connection of connections)
+            {
+                for(var i = 0; i < connection.length; i++)
+                {
+                    if(done[connection[i]])
+                    {
+                        connection.splice(i,1)
+                        i--;
+                    }
+                }
+            }
+        }
+
+
         while (working)
         {
             working = false
@@ -121,6 +160,9 @@ export const solveMethods = {
                 }
                 
             }
+            removeDone()
+            graphOddLoopCount = getGraphOddLoopCount();
+            sortConnections()
             current_color++;
         }
         
