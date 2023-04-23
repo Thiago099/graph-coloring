@@ -4,6 +4,18 @@ color the graph with the least ammount of colors posible so two of the same colo
 
 [live demo](https://thiago099.github.io/graph-coloring/)
 
+explanation of the algorithim
+```
+finds all odd cycles
+sort the nodes and connections by the odd cycles so the alogirithim eliminate the maximun ammound of odd cycle nodes
+loop:
+  chose the first node and set it to the current color (the highest odd cycle node), ignore all the nodes around it and from them chose the next high priority node
+  eliminate the done nodes and its odd cycles as they are now broken
+  sort the remaining nodes by their odd cycles
+  increment the current color
+  
+```
+
 ![](https://i.imgur.com/OkpcM09.png)
 
 ## commands
