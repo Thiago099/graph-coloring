@@ -1,6 +1,6 @@
 # graph coloring
 
-color the graph with the least ammount of colors posible so two of the same color dont connect
+this is a interactive graph editor that colors the graph with the least ammount of colors possible so there is no node with the same color connected
 
 [live demo](https://thiago099.github.io/graph-coloring/)
 
