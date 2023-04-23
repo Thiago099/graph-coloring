@@ -28,7 +28,7 @@ https://nodejs.org/en/download/
 
 ## Project setup
 ```
-npm installCancel
+npm i
 ```
 
 ### Compiles and hot-reloads for development
