@@ -38,6 +38,7 @@ Loop:
   Increment the current color
   
 ```
+[implementation](https://github.com/Thiago099/graph-coloring/blob/master/src/app/solve.ts)
 
 
 # Running locally
