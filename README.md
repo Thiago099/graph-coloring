@@ -1,6 +1,6 @@
 # graph coloring
 
-this is a interactive graph editor that colors the graph with the least ammount of colors possible so there is no node with the same color connected
+This is a interactive graph editor that colors the graph with the least ammount of colors possible so there is no node with the same color connected
 
 ![](https://i.imgur.com/OkpcM09.png)
 
