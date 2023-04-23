@@ -1,13 +1,15 @@
 # graph coloring
 
-color the graph with the least ammount of colors posible so two of the same color dont connect
+this is a interactive graph editor that colors the graph with the least ammount of colors possible so there is no node with the same color connected
 
 [live demo](https://thiago099.github.io/graph-coloring/)
 
+[download some examples](https://github.com/Thiago099/graph-coloring/tree/master/examples)
+
 explanation of the algorithim
 ```
-Finds all odd cycles
-Sort the nodes and connections by the odd cycles so the algorithm eliminates the maximum amount of odd cycle nodes
+for each node find some of the odd cycles
+Sort the nodes and connections by the odd cycles found so the algorithm eliminates the maximum amount of odd cycle nodes
 Loop:
   Chose the first node and set it to the current color (the highest odd cycle node), ignore all the nodes around it and from they chose the next highest priority node
   Eliminate the done nodes and its odd cycles as they are now broken
@@ -36,6 +38,10 @@ ctrl+s to save in file
 ctrl+l to load in file
 
 ctrl+c to clear
+
+# Running locally
+
+[source code](https://github.com/Thiago099/graph-coloring)
 
 ## Install node
 https://nodejs.org/en/download/
