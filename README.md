@@ -1,6 +1,6 @@
 # graph coloring
 
-This is a interactive graph editor that colors the graph with the least ammount of colors possible so there is no node with the same color connected
+This is an interactive graph editor that colors the graph with the least amount of colors possible so there is no node with the same color connected
 
 ![](https://i.imgur.com/OkpcM09.png)
 
@@ -10,24 +10,24 @@ This is a interactive graph editor that colors the graph with the least ammount 
 
 ## commands
 
-left button to create node
-left button on a node to drag
-middle button to connect(if there is no legal target it will create a end node)
-right button to delete
+Left button to create a node
+left button on a node to move it
+Middle button to connect (if there is no legal target it will create an end node)
+Right button to delete
 
-middle button on empty space to create node and connect
+Middle button on empty space to create node and start a connection from it
 
-left button on empty space to create a node and drag
+The left button on empty space to create a node and drag it
 
-right button on empty space to move everything
+Right button on the empty space to move everything
 
-ctrl+s to save in file 
+ctrl+s to save in a file 
 
-ctrl+l to load in file
+ctrl+l to load in a file
 
 ctrl+c to clear
 
-explanation of the algorithim
+## explanation of the algorithim
 ```
 for each node find some of its odd node count cycles
 Sort the nodes and connections by the odd cycles found so the algorithm eliminates the maximum amount of odd cycle nodes
