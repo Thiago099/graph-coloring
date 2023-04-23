@@ -56,8 +56,6 @@ export const solveMethods = {
             }
         }
 
-        console.log(oddLoops)
-        return graph
 
         function getGraphOddLoopCount()
         {
