@@ -4,6 +4,8 @@ color the graph with the least ammount of colors posible so two of the same colo
 
 [live demo](https://thiago099.github.io/graph-coloring/)
 
+[download some examples](https://github.com/Thiago099/graph-coloring/tree/master/examples)
+
 explanation of the algorithim
 ```
 Finds all odd cycles
