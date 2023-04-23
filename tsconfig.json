@@ -9,7 +9,6 @@
     "sourceMap": true,
     "baseUrl": "./",
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "paths": {
