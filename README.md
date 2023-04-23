@@ -2,6 +2,8 @@
 
 color the graph with the least ammount of colors posible so two of the same color dont connect
 
+[live demo](https://thiago099.github.io/graph-coloring/)
+
 ![](https://i.imgur.com/OkpcM09.png)
 
 ## commands
