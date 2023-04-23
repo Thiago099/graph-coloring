@@ -39,7 +39,7 @@ ctrl+l to load in file
 
 ctrl+c to clear
 
-## Running locally
+# Running locally
 
 [source code](https://github.com/Thiago099/graph-coloring)
 
