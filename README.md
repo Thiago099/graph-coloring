@@ -1,20 +1,8 @@
 # graph coloring
 
-this is a old project i have
-
 color the graph with the least ammount of colors posible so two of the same color dont connect
 
 ![](https://i.imgur.com/OkpcM09.png)
-
-# algoritimo heuristico disponivel nas branchs funciona na maioria dos casos e roda em tempo linear
-grafo que o algoritimo heuristico não colore corretamente
-
-![](https://i.imgur.com/pJT23cD.png)
-![](https://i.imgur.com/4YJz8TQ.png)
-
-
-## if you cloned this project in the past
-i changed from vue@cli to vite so it will require to npm install again, and the run command changed from npm run serve to npm run dev
 
 ## commands
 
