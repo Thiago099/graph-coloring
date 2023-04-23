@@ -27,7 +27,7 @@ ctrl+l to load in a file
 
 ctrl+c to clear
 
-## explanation of the algorithim
+## explanation of the algorithm
 ```
 for each node find some of its odd node count cycles
 Sort the nodes and connections by the odd cycles found so the algorithm eliminates the maximum amount of odd cycle nodes
