@@ -20,8 +20,6 @@ Loop:
 
 ![](https://i.imgur.com/OkpcM09.png)
 
-[source code](https://github.com/Thiago099/graph-coloring)
-
 ## commands
 
 left button to create node
@@ -40,6 +38,10 @@ ctrl+s to save in file
 ctrl+l to load in file
 
 ctrl+c to clear
+
+## Running locally
+
+[source code](https://github.com/Thiago099/graph-coloring)
 
 ## Install node
 https://nodejs.org/en/download/
