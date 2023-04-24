@@ -2,6 +2,8 @@
 
 This is an interactive graph editor that colors the graph with the least amount of colors possible so there is no node with the same color connected
 
+[more information about the problem](https://en.wikipedia.org/wiki/Graph_coloring)
+
 ![](https://i.imgur.com/OkpcM09.png)
 
 [live demo](https://thiago099.github.io/graph-coloring/)
