@@ -126,6 +126,9 @@ export const solveMethods = {
             }
         }
 
+        // DEBUG CODE NOT PART OF THE ALGORITHM
+        var data = {selected:[],colorHistory:[]}
+        // END OF DEBUG CODE
 
         while (working)
         {
@@ -150,6 +153,10 @@ export const solveMethods = {
                             passive_nodes.push(connection)
                         }
                     }
+                    // DEBUG CODE NOT PART OF THE ALGORITHM
+                    data.selected.push(node)
+                    data.colorHistory.push([...graph])
+                    // END OF DEBUG CODE
                     for(const node of passive_nodes)
                     {
                         for(const connection of connections[node])
@@ -158,16 +165,14 @@ export const solveMethods = {
                         }
                     }
                 }
-                
             }
             removeDone()
             graphOddLoopCount = getGraphOddLoopCount();
             sortConnections()
             current_color++;
         }
-        
 
-        return graph
+        return {graph, solveData: data}
 
     }
 }

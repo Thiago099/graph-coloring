@@ -54,7 +54,8 @@ export const graphicsMethods = {
 
     update_colors()
     {
-        const graph = this.solve();
+        const {graph,solveData} = this.solve();
+        this.solveData = solveData;
         // this.node_odd_count = node_odd_count
         for (let i = 0; i < this.nodes.length; i++)
         {

@@ -14,7 +14,15 @@ export const keyboardMethods = {
             {
                 e.preventDefault()
                 e.stopPropagation()
-                const save_file = new File([JSON.stringify({nodes:this.nodes.map(node => node.position),connections:this.connections})], 'save.json', {type: 'application/json'})
+                const save_file = new File([
+                    JSON.stringify(
+                        {
+                            nodes:this.nodes.map(node => node.position),
+                            connections:this.connections,
+                            selected: this.solveData.selected,
+                            colorHistory: this.solveData.colorHistory,
+                        })
+                        ], 'save.json', {type: 'application/json'})
                 const save_link = document.createElement('a')
                 save_link.href = URL.createObjectURL(save_file)
                 save_link.download = 'graph.json'
