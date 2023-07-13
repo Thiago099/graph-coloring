@@ -4,7 +4,7 @@ This is an interactive graph editor that colors the graph with the least amount 
 
 [more information about the problem](https://en.wikipedia.org/wiki/Graph_coloring)
 
-![](https://i.imgur.com/OkpcM09.png)
+https://user-images.githubusercontent.com/66787043/236627492-56df052e-2b0a-44f6-83ec-061305e2a641.mp4
 
 [live demo](https://thiago099.github.io/graph-coloring/)
 
