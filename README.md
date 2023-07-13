@@ -65,3 +65,8 @@ npm run dev
 ```
 npm run build
 ```
+
+## Animation
+here is the repository to the procedural graph coloring animation generation program
+
+https://github.com/Thiago099/graph-coloring-animator
